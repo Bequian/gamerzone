@@ -3,6 +3,7 @@ package com.bequian.gamerzone.security;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -16,6 +17,7 @@ import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWrite
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity   // activa @PreAuthorize en los controladores
 public class WebSecurityConfig {
 
     // Las contraseñas se leen desde application.properties / variables de entorno
@@ -33,7 +35,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/", "/home", "/login", "/error").permitAll()
                 // Recursos estáticos (CSS, JS, imágenes)
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
-                // Zona solo para administradores (preparada para el futuro)
+                // Zona administración: rol ADMIN
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 // Todo lo demás requiere iniciar sesión
                 .anyRequest().authenticated()

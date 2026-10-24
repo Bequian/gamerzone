@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+
+    <!-- ===== Navbar reutilizable ===== -->
+    <header class="navbar" th:fragment="navbar">
+        <div class="contenedor">
+            <a class="logo" th:href="@{/}">Gamer<span>Zone</span></a>
+
+            <nav aria-label="Navegación principal">
+                <ul class="nav-links">
+                    <li><a th:href="@{/}">Inicio</a></li>
+                    <li><a th:href="@{/#eventos}">Eventos</a></li>
+                    <li><a th:href="@{/#noticias}">Noticias</a></li>
+                    <li sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{/admin}">Panel admin</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="usuario">
+                <th:block sec:authorize="isAuthenticated()">
+                    <span class="usuario-nombre">
+                        Hola, <strong sec:authentication="name">usuario</strong>
+                    </span>
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="btn btn-secundario">Cerrar sesión</button>
+                    </form>
+                </th:block>
+
+                <a sec:authorize="!isAuthenticated()" class="btn btn-primario" th:href="@{/login}">
+                    Iniciar sesión
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== Footer reutilizable ===== -->
+    <footer class="footer" th:fragment="footer">
+        <div class="contenedor">
+            <p>&copy; <span th:text="${#dates.year(#dates.createNow())}">2026</span> GamerZone. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

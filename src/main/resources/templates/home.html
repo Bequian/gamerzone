@@ -11,37 +11,7 @@
 </head>
 <body>
 
-    <header class="navbar">
-        <div class="contenedor">
-            <a class="logo" th:href="@{/}">Gamer<span>Zone</span></a>
-
-            <nav aria-label="Navegación principal">
-                <ul class="nav-links">
-                    <li><a th:href="@{/}">Inicio</a></li>
-                    <li><a href="#eventos">Eventos</a></li>
-                    <li><a href="#noticias">Noticias</a></li>
-                </ul>
-            </nav>
-
-            <div class="usuario">
-                <!-- Visible solo con sesión iniciada -->
-                <th:block sec:authorize="isAuthenticated()">
-                    <span class="usuario-nombre">
-                        Hola, <strong sec:authentication="name">usuario</strong>
-                    </span>
-                    <!-- El logout debe ser POST (Thymeleaf agrega el token CSRF) -->
-                    <form th:action="@{/logout}" method="post">
-                        <button type="submit" class="btn btn-secundario">Cerrar sesión</button>
-                    </form>
-                </th:block>
-
-                <!-- Visible solo sin sesión -->
-                <a sec:authorize="!isAuthenticated()" class="btn btn-primario" th:href="@{/login}">
-                    Iniciar sesión
-                </a>
-            </div>
-        </div>
-    </header>
+    <header th:replace="~{fragments/comunes :: navbar}"></header>
 
     <main>
         <section class="hero">
@@ -93,11 +63,7 @@
         </section>
     </main>
 
-    <footer class="footer">
-        <div class="contenedor">
-            <p>&copy; <span th:text="${#dates.year(#dates.createNow())}">2026</span> GamerZone. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+    <footer th:replace="~{fragments/comunes :: footer}"></footer>
 
 </body>
 </html>

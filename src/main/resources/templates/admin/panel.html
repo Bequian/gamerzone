@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamerZone - Panel de administración</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+    <header th:replace="~{fragments/comunes :: navbar}"></header>
+
+    <main class="seccion">
+        <div class="contenedor">
+
+            <div class="admin-encabezado">
+                <span class="card-etiqueta">Zona restringida</span>
+                <h1>Panel de administración</h1>
+                <p class="texto-suave">
+                    Solo los usuarios con rol <strong>ADMIN</strong> pueden ver esta página.
+                </p>
+            </div>
+
+            <!-- Resumen -->
+            <div class="grid-stats">
+                <div class="stat">
+                    <span class="stat-valor" th:text="${totalEventos}">0</span>
+                    <span class="stat-label">Eventos publicados</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-valor" sec:authentication="name">admin</span>
+                    <span class="stat-label">Sesión actual</span>
+                </div>
+                <div class="stat">
+                    <div class="roles">
+                        <span class="badge"
+                              th:each="rol : ${#authentication.authorities}"
+                              th:text="${rol.authority}">ROLE_ADMIN</span>
+                    </div>
+                    <span class="stat-label">Roles asignados</span>
+                </div>
+            </div>
+
+            <!-- Tabla de eventos -->
+            <h2 class="seccion-titulo">Eventos</h2>
+            <div class="tabla-contenedor">
+                <table class="tabla">
+                    <thead>
+                        <tr>
+                            <th scope="col">Título</th>
+                            <th scope="col">Categoría</th>
+                            <th scope="col">Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="evento : ${eventos}">
+                            <td th:text="${evento.titulo}">Título</td>
+                            <td><span class="card-etiqueta" th:text="${evento.categoria}">Categoría</span></td>
+                            <td th:text="${evento.fecha}">Fecha</td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(eventos)}">
+                            <td colspan="3" class="texto-suave">No hay eventos registrados.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/comunes :: footer}"></footer>
+
+</body>
+</html>

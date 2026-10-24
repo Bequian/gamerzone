@@ -226,6 +226,90 @@ input:focus-visible {
 }
 .footer p { margin: 0; }
 
+/* ========== Panel admin ========== */
+.texto-suave { color: var(--texto-suave); }
+
+.admin-encabezado { margin-bottom: 2rem; }
+.admin-encabezado h1 { margin: 0.5rem 0 0.25rem; font-size: clamp(1.6rem, 4vw, 2.2rem); }
+.admin-encabezado p { margin: 0; }
+
+.grid-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-elevado);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+}
+.stat-valor { font-size: 1.8rem; font-weight: 800; }
+.stat-label { font-size: 0.85rem; color: var(--texto-suave); }
+
+.roles {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 2.7rem;
+}
+.badge {
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(124, 58, 237, 0.18);
+    color: var(--primario-hover);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.tabla-contenedor {
+    overflow-x: auto;
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+}
+.tabla { width: 100%; border-collapse: collapse; background: var(--bg-elevado); }
+.tabla th, .tabla td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--borde);
+}
+.tabla th {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--texto-suave);
+    background: rgba(255, 255, 255, 0.02);
+}
+.tabla tbody tr:last-child td { border-bottom: none; }
+.tabla tbody tr:hover { background: rgba(124, 58, 237, 0.06); }
+
+/* ========== Página de error ========== */
+.error-pagina {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+.error-card { max-width: 420px; text-align: center; }
+.error-codigo {
+    display: block;
+    font-size: 5rem;
+    font-weight: 800;
+    line-height: 1;
+    background: linear-gradient(90deg, var(--primario-hover), var(--acento));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.error-card h1 { margin: 0.5rem 0; }
+.error-card p { margin: 0 0 1.5rem; color: var(--texto-suave); }
+
 /* ========== Responsive ========== */
 @media (max-width: 640px) {
     .nav-links {
