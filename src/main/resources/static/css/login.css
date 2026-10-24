@@ -1,0 +1,64 @@
+.login-pagina {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    background: radial-gradient(ellipse at top, rgba(124, 58, 237, 0.25), transparent 60%);
+}
+
+.login-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 2.5rem 2rem;
+    background: var(--bg-elevado);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+}
+
+.login-card .logo {
+    display: block;
+    margin-bottom: 0.25rem;
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+.login-subtitulo {
+    margin: 0 0 2rem;
+    text-align: center;
+    color: var(--texto-suave);
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+}
+
+.campo label { font-size: 0.9rem; font-weight: 600; }
+
+.campo input {
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    color: var(--texto);
+    font: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.campo input:focus {
+    outline: none;
+    border-color: var(--primario);
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.3);
+}
+
+.btn-bloque { width: 100%; margin-top: 0.5rem; }
+
+.login-volver {
+    display: block;
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+}

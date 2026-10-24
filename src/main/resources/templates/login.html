@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamerZone - Iniciar sesión</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<body>
+
+    <main class="login-pagina">
+        <section class="login-card">
+            <a class="logo" th:href="@{/}">Gamer<span>Zone</span></a>
+            <p class="login-subtitulo">Inicia sesión para continuar</p>
+
+            <!-- Mensaje genérico: no revela si falló el usuario o la contraseña -->
+            <div th:if="${param.error}" class="alerta alerta-error" role="alert">
+                Nombre de usuario o contraseña incorrectos.
+            </div>
+
+            <div th:if="${param.logout}" class="alerta alerta-exito" role="status">
+                Has cerrado sesión correctamente.
+            </div>
+
+            <!-- th:action agrega automáticamente el token CSRF oculto -->
+            <form th:action="@{/login}" method="post">
+                <div class="campo">
+                    <label for="username">Nombre de usuario</label>
+                    <input type="text" id="username" name="username"
+                           autocomplete="username" maxlength="50" autofocus required>
+                </div>
+
+                <div class="campo">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password"
+                           autocomplete="current-password" maxlength="100" required>
+                </div>
+
+                <button type="submit" class="btn btn-primario btn-bloque">Iniciar sesión</button>
+            </form>
+
+            <a class="login-volver" th:href="@{/}">← Volver al inicio</a>
+        </section>
+    </main>
+
+</body>
+</html>
