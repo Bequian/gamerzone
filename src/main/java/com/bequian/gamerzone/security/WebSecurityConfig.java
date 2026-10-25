@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -20,19 +19,22 @@ import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWrite
 @EnableMethodSecurity   // activa @PreAuthorize en los controladores
 public class WebSecurityConfig {
 
-    // Las contraseñas se leen desde application.properties / variables de entorno
+    // Contraseñas definias en application.properties y sobreescritas por variables de entorno
     @Value("${gamerzone.user.password}")
     private String userPassword;
 
     @Value("${gamerzone.admin.password}")
     private String adminPassword;
 
+    @Value("${gamerzone.organizador.password}")
+    private String organizadorPassword;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(requests -> requests
                 // Páginas públicas
-                .requestMatchers("/", "/home", "/login", "/error").permitAll()
+                .requestMatchers("/", "/home", "/login", "/registro", "/error").permitAll()
                 // Recursos estáticos (CSS, JS, imágenes)
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
                 // Zona administración: rol ADMIN
@@ -69,8 +71,9 @@ public class WebSecurityConfig {
     }
 
     // Usuarios en memoria (todavía no hay base de datos)
+    // Devuelve InMemoryUserDetailsManager para poder crear usuarios desde el registro.
     @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder encoder) {
+    public InMemoryUserDetailsManager userDetailsService(PasswordEncoder encoder) {
         UserDetails user = User.builder()
             .username("user")
             .password(encoder.encode(userPassword))
@@ -83,7 +86,13 @@ public class WebSecurityConfig {
             .roles("USER", "ADMIN")
             .build();
 
-        return new InMemoryUserDetailsManager(user, admin);
+        UserDetails organizador = User.builder()
+            .username("organizador")
+            .password(encoder.encode(organizadorPassword))
+            .roles("USER", "ORGANIZADOR")
+            .build();
+
+        return new InMemoryUserDetailsManager(user, admin, organizador);
     }
 
     @Bean

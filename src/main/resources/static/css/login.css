@@ -29,36 +29,16 @@
     color: var(--texto-suave);
 }
 
-.campo {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    margin-bottom: 1.25rem;
+.login-alternativa {
+    margin: 1.5rem 0 0;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--texto-suave);
 }
-
-.campo label { font-size: 0.9rem; font-weight: 600; }
-
-.campo input {
-    padding: 0.75rem 1rem;
-    background: var(--bg);
-    border: 1px solid var(--borde);
-    border-radius: 8px;
-    color: var(--texto);
-    font: inherit;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.campo input:focus {
-    outline: none;
-    border-color: var(--primario);
-    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.3);
-}
-
-.btn-bloque { width: 100%; margin-top: 0.5rem; }
 
 .login-volver {
     display: block;
-    margin-top: 1.5rem;
+    margin-top: 0.75rem;
     text-align: center;
     font-size: 0.9rem;
 }

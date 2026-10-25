@@ -58,7 +58,7 @@
                         <tr th:each="evento : ${eventos}">
                             <td th:text="${evento.titulo}">Título</td>
                             <td><span class="card-etiqueta" th:text="${evento.categoria}">Categoría</span></td>
-                            <td th:text="${evento.fecha}">Fecha</td>
+                            <td th:text="${#temporals.format(evento.fecha, 'dd/MM/yyyy')}">Fecha</td>
                         </tr>
                         <tr th:if="${#lists.isEmpty(eventos)}">
                             <td colspan="3" class="texto-suave">No hay eventos registrados.</td>

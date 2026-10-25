@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 
-    <!-- ===== Navbar reutilizable ===== -->
+        <!-- ===== Navbar reutilizable ===== -->
     <header class="navbar" th:fragment="navbar">
         <div class="contenedor">
             <a class="logo" th:href="@{/}">Gamer<span>Zone</span></a>
@@ -12,11 +12,11 @@
             <nav aria-label="Navegación principal">
                 <ul class="nav-links">
                     <li><a th:href="@{/}">Inicio</a></li>
-                    <li><a th:href="@{/#eventos}">Eventos</a></li>
-                    <li><a th:href="@{/#noticias}">Noticias</a></li>
-                    <li sec:authorize="hasRole('ADMIN')">
-                        <a th:href="@{/admin}">Panel admin</a>
-                    </li>
+                    <!-- /eventos es privada: si no hay sesión, Spring Security redirige al login -->
+                    <li><a th:href="@{/eventos}">Eventos</a></li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/perfil}">Mi perfil</a></li>
+                    <!-- Ocultar el enlace es solo comodidad visual, NO es seguridad -->
+                    <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin}">Panel admin</a></li>
                 </ul>
             </nav>
 
@@ -30,9 +30,10 @@
                     </form>
                 </th:block>
 
-                <a sec:authorize="!isAuthenticated()" class="btn btn-primario" th:href="@{/login}">
-                    Iniciar sesión
-                </a>
+                <th:block sec:authorize="!isAuthenticated()">
+                    <a class="btn btn-secundario" th:href="@{/registro}">Registrarse</a>
+                    <a class="btn btn-primario" th:href="@{/login}">Iniciar sesión</a>
+                </th:block>
             </div>
         </div>
     </header>

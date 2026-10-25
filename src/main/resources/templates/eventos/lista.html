@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamerZone - Buscar eventos</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+    <header th:replace="~{fragments/comunes :: navbar}"></header>
+
+    <main class="seccion">
+        <div class="contenedor">
+            <h1 class="pagina-titulo">Eventos</h1>
+
+            <!-- Búsqueda con GET: los filtros quedan en la URL y se pueden compartir -->
+            <form class="panel filtros" th:action="@{/eventos}" method="get">
+                <div class="campo">
+                    <label for="categoria">Categoría</label>
+                    <select id="categoria" name="categoria">
+                        <option value="">Todas</option>
+                        <option th:each="c : ${categorias}" th:value="${c}" th:text="${c}"
+                                th:selected="${c == categoriaSel}">Categoría</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="ubicacion">Ubicación</label>
+                    <select id="ubicacion" name="ubicacion">
+                        <option value="">Todas</option>
+                        <option th:each="u : ${ubicaciones}" th:value="${u}" th:text="${u}"
+                                th:selected="${u == ubicacionSel}">Ubicación</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="desde">Desde</label>
+                    <input type="date" id="desde" name="desde" th:value="${desde}">
+                </div>
+
+                <div class="campo">
+                    <label for="hasta">Hasta</label>
+                    <input type="date" id="hasta" name="hasta" th:value="${hasta}">
+                </div>
+
+                <div class="filtros-acciones">
+                    <button type="submit" class="btn btn-primario">Buscar</button>
+                    <a class="btn btn-secundario" th:href="@{/eventos}">Limpiar</a>
+                </div>
+            </form>
+
+            <div th:if="${errorFechas}" class="alerta alerta-error" role="alert" th:text="${errorFechas}">Error</div>
+
+            <p class="resultados" th:text="|${#lists.size(eventos)} evento(s) encontrado(s)|">0 eventos</p>
+
+            <div class="grid-eventos">
+                <article class="card" th:each="evento : ${eventos}" th:classappend="${evento.destacado} ? 'card-destacado'">
+                    <span class="card-etiqueta" th:text="${evento.categoria}">Categoría</span>
+                    <h3 th:text="${evento.titulo}">Título</h3>
+                    <p th:text="${evento.descripcion}">Descripción</p>
+                    <span class="card-fecha"
+                          th:text="|📅 ${#temporals.format(evento.fecha, 'dd/MM/yyyy')} · 🕒 ${#temporals.format(evento.hora, 'HH:mm')} · 📍 ${evento.ubicacion}|">
+                        Fecha
+                    </span>
+                    <a class="card-link" th:href="@{/eventos/{id}(id=${evento.id})}">Ver detalle →</a>
+                </article>
+            </div>
+
+            <p class="vacio" th:if="${#lists.isEmpty(eventos)}">
+                No hay eventos que coincidan con tu búsqueda.
+            </p>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/comunes :: footer}"></footer>
+
+</body>
+</html>

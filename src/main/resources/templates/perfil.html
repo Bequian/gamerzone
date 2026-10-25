@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamerZone - Mi perfil</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+    <header th:replace="~{fragments/comunes :: navbar}"></header>
+
+    <main class="seccion">
+        <div class="contenedor">
+            <h1 class="pagina-titulo">Mi perfil</h1>
+
+            <div th:if="${mensaje}" class="alerta alerta-exito" role="status" th:text="${mensaje}">
+                Perfil actualizado.
+            </div>
+
+            <div class="perfil-layout">
+
+                <!-- ===== Resumen del perfil guardado ===== -->
+                <aside class="perfil-resumen">
+                    <span class="avatar-grande" th:text="${avatares[perfil.avatar]}">🎮</span>
+                    <h2 th:text="${#strings.isEmpty(perfil.gamertag)} ? 'Sin nombre de usuario' : ${perfil.gamertag}">gamertag</h2>
+                    <p class="texto-suave" th:text="${nombre}">Nombre</p>
+                    <p class="texto-suave perfil-cuenta" sec:authentication="name">correo@ejemplo.cl</p>
+
+                    <h3>Juegos de interés</h3>
+                    <div class="chips-lectura">
+                        <span class="badge" th:each="juego : ${perfil.juegos}" th:text="${juego}">Juego</span>
+                        <span class="texto-suave" th:if="${#lists.isEmpty(perfil.juegos)}">Aún no eliges juegos.</span>
+                    </div>
+                </aside>
+
+                <!-- ===== Formulario de edición ===== -->
+                <form class="panel" th:action="@{/perfil}" th:object="${perfilForm}" method="post" novalidate>
+
+                    <div class="campo">
+                        <label for="gamertag">Nombre de usuario (gamertag)</label>
+                        <input type="text" id="gamertag" th:field="*{gamertag}" th:errorclass="invalido"
+                               maxlength="20" required>
+                        <span class="campo-ayuda">Entre 3 y 20 caracteres: letras, números o guion bajo.</span>
+                        <span class="campo-error" th:if="${#fields.hasErrors('gamertag')}" th:errors="*{gamertag}">Error</span>
+                    </div>
+
+                    <fieldset class="grupo">
+                        <legend>Avatar</legend>
+                        <div class="avatar-opciones">
+                            <label class="avatar-opcion" th:each="a : ${avatares}">
+                                <input type="radio" th:field="*{avatar}" th:value="${a.key}">
+                                <span th:text="${a.value}" th:title="${a.key}">🎮</span>
+                            </label>
+                        </div>
+                        <span class="campo-error" th:if="${#fields.hasErrors('avatar')}" th:errors="*{avatar}">Error</span>
+                    </fieldset>
+
+                    <fieldset class="grupo">
+                        <legend>Juegos de interés <span class="campo-ayuda">(hasta 5)</span></legend>
+                        <div class="chips">
+                            <label class="chip" th:each="juego : ${juegosDisponibles}">
+                                <input type="checkbox" th:field="*{juegos}" th:value="${juego}">
+                                <span th:text="${juego}">Juego</span>
+                            </label>
+                        </div>
+                        <span class="campo-error" th:if="${#fields.hasErrors('juegos')}" th:errors="*{juegos}">Error</span>
+                    </fieldset>
+
+                    <fieldset class="grupo">
+                        <legend>Notificaciones</legend>
+                        <label class="opcion">
+                            <input type="checkbox" th:field="*{notifEmail}">
+                            Recibir notificaciones por correo
+                        </label>
+                        <label class="opcion">
+                            <input type="checkbox" th:field="*{notifNuevosEventos}">
+                            Avisarme cuando se publiquen eventos nuevos
+                        </label>
+                        <label class="opcion">
+                            <input type="checkbox" th:field="*{notifRecordatorios}">
+                            Recordatorio un día antes de cada evento
+                        </label>
+                    </fieldset>
+
+                    <button type="submit" class="btn btn-primario">Guardar perfil</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/comunes :: footer}"></footer>
+
+</body>
+</html>

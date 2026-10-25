@@ -310,6 +310,255 @@ input:focus-visible {
 .error-card h1 { margin: 0.5rem 0; }
 .error-card p { margin: 0 0 1.5rem; color: var(--texto-suave); }
 
+/* ========== Formularios (compartido por todas las páginas) ========== */
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+}
+
+.campo label { font-size: 0.9rem; font-weight: 600; }
+
+.campo input,
+.campo select {
+    height: 3rem;
+    padding: 0 1rem;
+    background: var(--bg);
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    color: var(--texto);
+    font: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Hace que el calendario del input date se vea bien en tema oscuro */
+.campo input[type="date"] { color-scheme: dark; }
+
+.campo input:focus,
+.campo select:focus {
+    outline: none;
+    border-color: var(--primario);
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.3);
+}
+
+.campo input.invalido { border-color: var(--error); }
+.campo-error { color: var(--error); font-size: 0.85rem; }
+.campo-ayuda { color: var(--texto-suave); font-size: 0.8rem; font-weight: 400; }
+
+.btn-bloque { width: 100%; margin-top: 0.5rem; }
+
+.grupo {
+    margin: 0 0 1.5rem;
+    padding: 0;
+    border: none;
+}
+.grupo legend { margin-bottom: 0.6rem; font-size: 0.9rem; font-weight: 600; }
+
+.opcion {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+}
+.opcion input { flex-shrink: 0; width: 1.1rem; height: 1.1rem; accent-color: var(--primario); }
+
+/* ========== Páginas internas ========== */
+.pagina-titulo { margin: 0 0 1.5rem; font-size: clamp(1.6rem, 4vw, 2.2rem); }
+
+.panel {
+    padding: 1.5rem;
+    background: var(--bg-elevado);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+}
+.panel h2 { margin: 0 0 1rem; font-size: 1.15rem; }
+.panel h2:not(:first-child) { margin-top: 1.75rem; }
+
+.volver { display: inline-block; margin-bottom: 1.5rem; font-size: 0.9rem; }
+
+/* ========== Inicio: destacados y marcas ========== */
+.card-destacado { border-color: rgba(124, 58, 237, 0.6); }
+.card-link { font-weight: 600; font-size: 0.9rem; }
+
+.grid-marcas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.25rem;
+}
+
+.marca {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1.5rem;
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.15), rgba(34, 211, 238, 0.08));
+}
+.marca-publicidad {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--texto-suave);
+}
+.marca-nombre { margin: 0; font-size: 1.4rem; font-weight: 800; }
+.marca-rubro { font-size: 0.8rem; color: var(--acento); font-weight: 600; }
+.marca p { margin: 0.25rem 0; flex: 1; color: var(--texto-suave); font-size: 0.95rem; }
+.marca-oferta {
+    align-self: flex-start;
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    background: var(--primario);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+/* ========== Búsqueda de eventos ========== */
+.filtros {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    align-items: end;
+    margin-bottom: 1.5rem;
+}
+.filtros .campo { margin-bottom: 0; }
+.filtros-acciones { display: flex; gap: 0.5rem; }
+.resultados { margin: 0 0 1rem; color: var(--texto-suave); font-size: 0.9rem; }
+
+/* ========== Detalle de evento ========== */
+.detalle-encabezado { margin-bottom: 2rem; }
+.detalle-encabezado h1 { margin: 0.75rem 0 0.5rem; font-size: clamp(1.8rem, 5vw, 2.6rem); line-height: 1.2; }
+.detalle-encabezado p { max-width: 720px; margin: 0; }
+.detalle-etiquetas { display: flex; gap: 0.5rem; align-items: center; }
+
+.detalle-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.info-lista {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.6rem 1.25rem;
+    margin: 0;
+}
+.info-lista dt { color: var(--texto-suave); }
+.info-lista dd { margin: 0; font-weight: 600; }
+
+.lista { margin: 0; padding-left: 1.2rem; }
+.lista li { margin-bottom: 0.3rem; }
+
+.servicios { list-style: none; margin: 0; padding: 0; }
+.servicios li {
+    display: flex;
+    gap: 0.6rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--borde);
+}
+.servicios li:last-child { border-bottom: none; }
+.servicios .si span { color: var(--exito); font-weight: 700; }
+.servicios .no { color: var(--texto-suave); }
+.servicios .no span { color: var(--error); }
+
+/* ========== Perfil ========== */
+.perfil-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.perfil-resumen {
+    padding: 1.5rem;
+    text-align: center;
+    background: var(--bg-elevado);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+}
+.perfil-resumen h2 { margin: 0.75rem 0 0.25rem; font-size: 1.3rem; word-break: break-word; }
+.perfil-resumen p { margin: 0; }
+.perfil-resumen h3 { margin: 1.5rem 0 0.75rem; font-size: 0.9rem; color: var(--texto-suave); }
+.perfil-cuenta { font-size: 0.85rem; word-break: break-all; }
+
+.avatar-grande {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: rgba(124, 58, 237, 0.18);
+    border: 2px solid var(--primario);
+    font-size: 3rem;
+}
+
+.chips-lectura { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem; }
+
+/* Radios y checkboxes con apariencia de botón.
+   El input real queda oculto visualmente, pero sigue siendo accesible con teclado. */
+.avatar-opcion input,
+.chip input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+.avatar-opciones { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.avatar-opcion span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border: 2px solid var(--borde);
+    border-radius: 12px;
+    background: var(--bg);
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.1s;
+}
+.avatar-opcion span:hover { border-color: var(--acento); }
+.avatar-opcion input:checked + span {
+    border-color: var(--primario);
+    background: rgba(124, 58, 237, 0.2);
+    transform: scale(1.05);
+}
+
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chip span {
+    display: inline-block;
+    padding: 0.45rem 0.9rem;
+    border: 1px solid var(--borde);
+    border-radius: 999px;
+    background: var(--bg);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+}
+.chip span:hover { border-color: var(--acento); }
+.chip input:checked + span {
+    border-color: var(--primario);
+    background: rgba(124, 58, 237, 0.25);
+    color: #fff;
+}
+
+/* Foco visible en las opciones personalizadas */
+.avatar-opcion input:focus-visible + span,
+.chip input:focus-visible + span {
+    outline: 2px solid var(--acento);
+    outline-offset: 2px;
+}
+
 /* ========== Responsive ========== */
 @media (max-width: 640px) {
     .nav-links {
@@ -319,6 +568,11 @@ input:focus-visible {
     }
     .usuario-nombre { display: none; }
     .hero { padding: 3rem 0 2.5rem; }
+}
+
+@media (max-width: 800px) {
+    .detalle-grid,
+    .perfil-layout { grid-template-columns: 1fr; }
 }
 
 /* Respeta a usuarios que prefieren menos animaciones */

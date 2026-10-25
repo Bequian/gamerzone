@@ -14,49 +14,78 @@
     <header th:replace="~{fragments/comunes :: navbar}"></header>
 
     <main>
+        <!-- ===== Hero ===== -->
         <section class="hero">
             <div class="contenedor">
                 <h1>Bienvenido a <span>GamerZone</span></h1>
-                <p>Explora los últimos eventos, torneos y noticias del mundo gaming.</p>
+                <p>Encuentra torneos, LAN parties y ferias gamer cerca de ti, y súmate a la comunidad.</p>
                 <div class="hero-acciones">
-                    <a href="#eventos" class="btn btn-primario">Ver eventos</a>
-                    <a href="#noticias" class="btn btn-secundario">Últimas noticias</a>
+                    <a href="#destacados" class="btn btn-primario">Ver eventos</a>
+                    <a sec:authorize="!isAuthenticated()" th:href="@{/registro}" class="btn btn-secundario">Crear cuenta gratis</a>
+                    <a sec:authorize="isAuthenticated()" th:href="@{/eventos}" class="btn btn-secundario">Buscar eventos</a>
                 </div>
             </div>
         </section>
 
-        <section id="eventos" class="seccion">
+        <!-- ===== Eventos destacados ===== -->
+        <section id="destacados" class="seccion">
+            <div class="contenedor">
+                <h2 class="seccion-titulo">⭐ Eventos destacados</h2>
+
+                <div class="grid-eventos">
+                    <article class="card card-destacado" th:each="evento : ${destacados}">
+                        <span class="card-etiqueta" th:text="${evento.categoria}">Categoría</span>
+                        <h3 th:text="${evento.titulo}">Título del evento</h3>
+                        <p th:text="${evento.descripcion}">Descripción del evento.</p>
+                        <span class="card-fecha"
+                              th:text="|📅 ${#temporals.format(evento.fecha, 'dd/MM/yyyy')} · 📍 ${evento.ubicacion}|">
+                            📅 Fecha · 📍 Ubicación
+                        </span>
+                        <a class="card-link" th:href="@{/eventos/{id}(id=${evento.id})}">Ver detalle →</a>
+                    </article>
+                </div>
+
+                <p class="vacio" th:if="${#lists.isEmpty(destacados)}">
+                    No hay eventos destacados por ahora.
+                </p>
+            </div>
+        </section>
+
+        <!-- ===== Próximos eventos ===== -->
+        <section id="proximos" class="seccion seccion-alterna">
             <div class="contenedor">
                 <h2 class="seccion-titulo">Próximos eventos</h2>
 
                 <div class="grid-eventos">
-                    <article class="card" th:each="evento : ${eventos}">
+                    <article class="card" th:each="evento : ${proximos}">
                         <span class="card-etiqueta" th:text="${evento.categoria}">Categoría</span>
                         <h3 th:text="${evento.titulo}">Título del evento</h3>
-                        <p th:text="${evento.descripcion}">Descripción del evento.</p>
-                        <span class="card-fecha" th:text="'📅 ' + ${evento.fecha}">📅 Fecha</span>
+                        <span class="card-fecha"
+                              th:text="|📅 ${#temporals.format(evento.fecha, 'dd/MM/yyyy')} · 🕒 ${#temporals.format(evento.hora, 'HH:mm')} · 📍 ${evento.ubicacion}|">
+                            📅 Fecha · 🕒 Hora · 📍 Ubicación
+                        </span>
+                        <a class="card-link" th:href="@{/eventos/{id}(id=${evento.id})}">Ver detalle →</a>
                     </article>
                 </div>
 
-                <p class="vacio" th:if="${#lists.isEmpty(eventos)}">
+                <p class="vacio" th:if="${#lists.isEmpty(proximos)}">
                     No hay eventos programados por ahora.
                 </p>
             </div>
         </section>
 
-        <section id="noticias" class="seccion seccion-alterna">
+        <!-- ===== Publicidad de marcas asociadas ===== -->
+        <section id="marcas" class="seccion">
             <div class="contenedor">
-                <h2 class="seccion-titulo">Noticias</h2>
-                <div class="grid-eventos">
-                    <article class="card">
-                        <span class="card-etiqueta">Comunidad</span>
-                        <h3>GamerZone abre sus puertas</h3>
-                        <p>Lanzamos nuestra plataforma para reunir a la comunidad gamer en un solo lugar.</p>
-                    </article>
-                    <article class="card">
-                        <span class="card-etiqueta">Seguridad</span>
-                        <h3>Tu cuenta, protegida</h3>
-                        <p>Contraseñas cifradas con BCrypt y protección CSRF en todos los formularios.</p>
+                <h2 class="seccion-titulo">Marcas asociadas</h2>
+
+                <div class="grid-marcas">
+                    <article class="marca" th:each="marca : ${marcas}">
+                        <span class="marca-publicidad">Publicidad</span>
+                        <h3 class="marca-nombre" th:text="${marca.nombre}">Marca</h3>
+                        <span class="marca-rubro" th:text="${marca.rubro}">Rubro</span>
+                        <p th:text="${marca.mensaje}">Mensaje publicitario.</p>
+                        <span class="marca-oferta" th:text="${marca.oferta}">Oferta</span>
                     </article>
                 </div>
             </div>

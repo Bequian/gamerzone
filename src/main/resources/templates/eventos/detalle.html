@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="|GamerZone - ${evento.titulo}|">GamerZone - Evento</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+    <header th:replace="~{fragments/comunes :: navbar}"></header>
+
+    <main class="seccion">
+        <div class="contenedor">
+            <a class="volver" th:href="@{/eventos}">← Volver a eventos</a>
+
+            <div class="detalle-encabezado">
+                <div class="detalle-etiquetas">
+                    <span class="card-etiqueta" th:text="${evento.categoria}">Categoría</span>
+                    <span class="badge" th:if="${evento.destacado}">⭐ Destacado</span>
+                </div>
+                <h1 th:text="${evento.titulo}">Título del evento</h1>
+                <p class="texto-suave" th:text="${evento.descripcion}">Descripción</p>
+            </div>
+
+            <div class="detalle-grid">
+                <!-- ===== Información principal ===== -->
+                <section class="panel">
+                    <h2>Información</h2>
+                    <dl class="info-lista">
+                        <dt>📅 Fecha</dt>
+                        <dd th:text="${#temporals.format(evento.fecha, 'dd/MM/yyyy')}">01/01/2026</dd>
+
+                        <dt>🕒 Hora</dt>
+                        <dd th:text="|${#temporals.format(evento.hora, 'HH:mm')} hrs|">00:00 hrs</dd>
+
+                        <dt>📍 Ubicación</dt>
+                        <dd th:text="${evento.ubicacion}">Ciudad</dd>
+
+                        <dt>🏠 Dirección</dt>
+                        <dd th:text="${evento.direccion}">Dirección</dd>
+                    </dl>
+
+                    <h2>Organizadores</h2>
+                    <ul class="lista">
+                        <li th:each="org : ${evento.organizadores}" th:text="${org}">Organizador</li>
+                    </ul>
+
+                    <h2>Principales expositores</h2>
+                    <ul class="lista">
+                        <li th:each="exp : ${evento.expositores}" th:text="${exp}">Expositor</li>
+                    </ul>
+                </section>
+
+                <!-- ===== Servicios disponibles ===== -->
+                <aside class="panel">
+                    <h2>Servicios disponibles</h2>
+                    <ul class="servicios">
+                        <li th:classappend="${evento.servicios.estacionamiento} ? 'si' : 'no'">
+                            <span th:text="${evento.servicios.estacionamiento} ? '✓' : '✗'">✓</span> Estacionamiento
+                        </li>
+                        <li th:classappend="${evento.servicios.locomocion} ? 'si' : 'no'">
+                            <span th:text="${evento.servicios.locomocion} ? '✓' : '✗'">✓</span> Locomoción colectiva
+                        </li>
+                        <li th:classappend="${evento.servicios.comida} ? 'si' : 'no'">
+                            <span th:text="${evento.servicios.comida} ? '✓' : '✗'">✓</span> Servicio de comidas
+                        </li>
+                        <li th:classappend="${evento.servicios.alojamiento} ? 'si' : 'no'">
+                            <span th:text="${evento.servicios.alojamiento} ? '✓' : '✗'">✓</span> Alojamiento
+                        </li>
+                    </ul>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/comunes :: footer}"></footer>
+
+</body>
+</html>
