@@ -1,17 +1,20 @@
 package com.bequian.gamerzone.security;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter.ReferrerPolicy;
 
 @Configuration
@@ -19,18 +22,55 @@ import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWrite
 @EnableMethodSecurity   // activa @PreAuthorize en los controladores
 public class WebSecurityConfig {
 
-    // Contraseñas definias en application.properties y sobreescritas por variables de entorno
-    @Value("${gamerzone.user.password}")
-    private String userPassword;
-
-    @Value("${gamerzone.admin.password}")
-    private String adminPassword;
-
-    @Value("${gamerzone.organizador.password}")
-    private String organizadorPassword;
-
+    /**
+     * Cadena 1: API REST (/api/**), autenticación con JWT.
+     * @Order(1): se evalúa primero; solo aplica a las rutas que empiezan con /api/.
+     */
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    @Order(1)
+    public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http,
+                                                      JwtService jwtService,
+                                                      UserDetailsService userDetailsService) throws Exception {
+        http
+            .securityMatcher("/api/**")
+            .authorizeHttpRequests(requests -> requests
+                // APIs públicas
+                .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/eventos").permitAll()
+                // Gestión de eventos: solo ORGANIZADOR o ADMIN
+                .requestMatchers(HttpMethod.POST, "/api/eventos").hasAnyRole("ORGANIZADOR", "ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/api/eventos/*").hasAnyRole("ORGANIZADOR", "ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/api/eventos/*").hasAnyRole("ORGANIZADOR", "ADMIN")
+                // Cualquier otra API (por ejemplo el detalle de un evento) requiere un token válido
+                .anyRequest().authenticated()
+            )
+            // Sin sesión en el servidor: cada petición debe traer su token
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            // CSRF desactivado SOLO en la API: el token viaja en una cabecera que el navegador
+            // no envía automáticamente (a diferencia de una cookie), por lo que CSRF no aplica
+            .csrf(csrf -> csrf.disable())
+            .formLogin(form -> form.disable())
+            .httpBasic(basic -> basic.disable())
+            // Respuestas JSON en vez de redirigir a la página de login
+            .exceptionHandling(ex -> ex
+                .authenticationEntryPoint((request, response, e) ->
+                    escribirError(response, 401, "Token ausente, inválido o expirado"))
+                .accessDeniedHandler((request, response, e) ->
+                    escribirError(response, 403, "No tienes permisos para esta operación"))
+            )
+            // El filtro JWT se ejecuta antes del filtro estándar de usuario y contraseña
+            .addFilterBefore(new JwtAuthenticationFilter(jwtService, userDetailsService),
+                             UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
+
+    /**
+     * Cadena 2: sitio web con Thymeleaf, autenticación con formulario y sesión (igual que antes).
+     */
+    @Bean
+    @Order(2)
+    public SecurityFilterChain webSecurityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(requests -> requests
                 // Páginas públicas
@@ -70,33 +110,21 @@ public class WebSecurityConfig {
         return http.build();
     }
 
-    // Usuarios en memoria (todavía no hay base de datos)
-    // Devuelve InMemoryUserDetailsManager para poder crear usuarios desde el registro.
+    // Lo usa AuthController para verificar usuario y contraseña contra la BD
     @Bean
-    public InMemoryUserDetailsManager userDetailsService(PasswordEncoder encoder) {
-        UserDetails user = User.builder()
-            .username("user")
-            .password(encoder.encode(userPassword))
-            .roles("USER")
-            .build();
-
-        UserDetails admin = User.builder()
-            .username("admin")
-            .password(encoder.encode(adminPassword))
-            .roles("USER", "ADMIN")
-            .build();
-
-        UserDetails organizador = User.builder()
-            .username("organizador")
-            .password(encoder.encode(organizadorPassword))
-            .roles("USER", "ORGANIZADOR")
-            .build();
-
-        return new InMemoryUserDetailsManager(user, admin, organizador);
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuracion) throws Exception {
+        return configuracion.getAuthenticationManager();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    private static void escribirError(jakarta.servlet.http.HttpServletResponse response,
+                                      int status, String mensaje) throws java.io.IOException {
+        response.setStatus(status);
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write("{\"status\":" + status + ",\"mensaje\":\"" + mensaje + "\"}");
     }
 }

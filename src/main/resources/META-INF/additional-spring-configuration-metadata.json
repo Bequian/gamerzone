@@ -1,0 +1,9 @@
+{
+  "properties": [
+    { "name": "gamerzone.user.password", "type": "java.lang.String", "description": "Contraseña del usuario base 'user' (variable GZ_USER_PASSWORD)." },
+    { "name": "gamerzone.admin.password", "type": "java.lang.String", "description": "Contraseña del usuario base 'admin' (variable GZ_ADMIN_PASSWORD)." },
+    { "name": "gamerzone.organizador.password", "type": "java.lang.String", "description": "Contraseña del usuario base 'organizador' (variable GZ_ORGANIZADOR_PASSWORD)." },
+    { "name": "gamerzone.jwt.secret", "type": "java.lang.String", "description": "Clave secreta en Base64 (mínimo 32 bytes) para firmar los JWT (variable GZ_JWT_SECRET)." },
+    { "name": "gamerzone.jwt.expiracion-minutos", "type": "java.lang.Long", "description": "Minutos de validez de cada token JWT." }
+  ]
+}

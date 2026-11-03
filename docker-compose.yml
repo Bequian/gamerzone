@@ -1,0 +1,66 @@
+# GamerZone: base de datos + aplicación + proxy HTTPS
+# Las contraseñas se leen del archivo .env (que NO se sube a Git)
+
+services:
+
+  db:
+    build: ./db
+    image: bequian/gamerzone-db:1.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: gamerzone
+      MYSQL_USER: gamerzone
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db-data:/var/lib/mysql          # los datos sobreviven aunque se recree el contenedor
+    networks:
+      - backend                         # sin "ports": MySQL NO queda expuesto a internet
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+
+  app:
+    build: .
+    image: bequian/gamerzone:2.0
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy      # espera a que MySQL esté listo
+    environment:
+      DB_HOST: db                       # nombre del servicio = nombre en la red de Docker
+      DB_PASSWORD: ${DB_PASSWORD}
+      GZ_USER_PASSWORD: ${GZ_USER_PASSWORD}
+      GZ_ADMIN_PASSWORD: ${GZ_ADMIN_PASSWORD}
+      GZ_ORGANIZADOR_PASSWORD: ${GZ_ORGANIZADOR_PASSWORD}
+      GZ_JWT_SECRET: ${GZ_JWT_SECRET}
+      SERVER_SERVLET_SESSION_COOKIE_SECURE: "true"   # la cookie de sesión solo viaja por HTTPS
+      JAVA_TOOL_OPTIONS: "-Xmx256m"     # limita la memoria de Java (la VM tiene poca RAM)
+    networks:
+      - backend
+      - frontend
+
+  proxy:
+    build: ./proxy
+    image: bequian/gamerzone-proxy:1.0
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "80:80"                         # solo redirige a HTTPS
+      - "443:443"
+    volumes:
+      - ./certs:/usr/local/apache2/certs:ro
+    networks:
+      - frontend
+
+networks:
+  backend:
+    internal: true                      # red privada entre app y BD, sin salida a internet
+  frontend:
+
+volumes:
+  db-data:
