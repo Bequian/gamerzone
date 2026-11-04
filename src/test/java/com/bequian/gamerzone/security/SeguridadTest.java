@@ -44,8 +44,13 @@ class SeguridadTest {
     // ===== Páginas privadas =====
 
     @Test
-    void eventosRequiereLogin() throws Exception {
-        mockMvc.perform(get("/eventos"))
+    void busquedaDeEventosEsPublica() throws Exception {
+        mockMvc.perform(get("/eventos")).andExpect(status().isOk());
+    }
+
+    @Test
+    void detalleDeEventoRequiereLogin() throws Exception {
+        mockMvc.perform(get("/eventos/1"))
             .andExpect(status().is3xxRedirection())
             .andExpect(redirectedUrl("/login"));
     }

@@ -75,6 +75,8 @@ public class WebSecurityConfig {
             .authorizeHttpRequests(requests -> requests
                 // Páginas públicas
                 .requestMatchers("/", "/home", "/login", "/registro", "/error").permitAll()
+                // Búsqueda de eventos: pública. El detalle (/eventos/{id}) sigue siendo privado
+                .requestMatchers(HttpMethod.GET, "/eventos").permitAll()
                 // Recursos estáticos (CSS, JS, imágenes)
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
                 // Zona administración: rol ADMIN

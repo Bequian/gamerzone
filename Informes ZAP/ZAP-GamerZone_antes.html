@@ -1,0 +1,2194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZAP por Informe de Escaneo Checkmarx</title>
+<link
+	href="ZAP-GamerZone_antes3/normalize/normalize.css" rel="stylesheet">
+<link
+	href="ZAP-GamerZone_antes3/themes/original/main.css" rel="stylesheet">
+<link
+	href="ZAP-GamerZone_antes3/themes/original/colors.css" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<h1>ZAP por Informe de Escaneo Checkmarx</h1>
+		<p>
+			<span>Generated with</span> <a href="https://zaproxy.org"><img
+				src="ZAP-GamerZone_antes3/zap32x32.png" alt="The ZAP logo" class="zap-logo">ZAP</a>
+			<span>on mar 3 nov 2026, at 20:38:22</span>
+		</p>
+		<p>ZAP Versión: 2.17.0</p>
+		<p>
+			ZAP by <a href="https://checkmarx.com/">Checkmarx</a>
+		</p>
+	</header>
+
+	<main>
+
+		<section id="contents" class="contents">
+			<h2>Contents</h2>
+			<nav>
+				<ol>
+					<li><a
+						href="#about-this-report">About This Report</a>
+						<ol>
+							
+							<li><a
+								href="#report-parameters">Report Parameters</a></li>
+						</ol></li>
+					<data-th-block>
+					<li><a
+						href="#summaries">Summaries</a>
+						<ol>
+							<li><a
+								href="#risk-confidence-counts">Alert Counts by Risk and Confidence</a></li>
+							<li><a
+								href="#site-risk-counts">Alert Counts by Site and Risk</a></li>
+							<li><a
+								href="#alert-type-counts">Alert Counts by Alert Type</a></li>
+							<li><a
+								href="#insights">Insights</a></li>
+						</ol></li>
+					<li><a
+						href="#alerts">Alerts</a>
+						<ol>
+							
+							 
+							 
+							
+							
+							
+							
+							<li><a
+								href="#alerts--risk-1-confidence-3"><span>Risk</span>=<span
+									class="risk-level">Bajo</span>, <span>Confidence</span>=<span
+									class="confidence-level">Alta</span> <span>(1)</span></a></li>
+							
+							
+							
+							
+							  
+							
+							
+							
+							
+							<li><a
+								href="#alerts--risk-0-confidence-3"><span>Risk</span>=<span
+									class="risk-level">Informativo</span>, <span>Confidence</span>=<span
+									class="confidence-level">Alta</span> <span>(1)</span></a></li>
+							
+							<li><a
+								href="#alerts--risk-0-confidence-2"><span>Risk</span>=<span
+									class="risk-level">Informativo</span>, <span>Confidence</span>=<span
+									class="confidence-level">Media</span> <span>(2)</span></a></li>
+							
+							<li><a
+								href="#alerts--risk-0-confidence-1"><span>Risk</span>=<span
+									class="risk-level">Informativo</span>, <span>Confidence</span>=<span
+									class="confidence-level">Baja</span> <span>(1)</span></a></li>
+							  
+						</ol></li>
+					<li><a
+						href="#appendix">Appendix</a>
+						<ol>
+							<li><a
+								href="#alert-types">Alert Types</a></li>
+						</ol></li>
+					</data-th-block>
+				</ol>
+			</nav>
+		</section>
+
+		<section
+			id="about-this-report" class="about-this-report">
+			<h2>About This Report</h2>
+
+			
+
+			<section
+				id="report-parameters">
+				<h3>Report Parameters</h3>
+				<div class="report-parameters--container">
+					<h4>Contexts</h4>
+					
+					
+					<p>No contexts were selected, so all contexts were included by default.</p>
+					  
+
+					<h4>Sites</h4>
+					
+					<p>The following sites were included:</p>
+					<ul class="sites-list">
+						<li><span class="site">https://52.91.43.161</span></li>
+						<li><span class="site">https://98.89.36.125</span></li>
+					</ul>
+					
+					<p>(If no sites were selected, all sites were included by default.)</p>
+					<p>An included site must also be within one of the included contexts for its data to be included in the report.</p>
+
+					<h4>Risk levels</h4>
+					<p>
+						<span>Included</span>:
+						 
+						<span class="included-risk-codes"><span class="risk-level">Alto</span>, <span class="risk-level">Medio</span>, <span class="risk-level">Bajo</span>, <span class="risk-level">Informativo</span></span>
+					</p>
+					<p>
+						<span>Excluded</span>:
+						 <span>None</span>
+						
+					</p>
+
+					<h4>Confidence levels</h4>
+					<p>
+						<span>Included</span>:
+						
+						
+						<span class="included-confidence-codes"><span class="confidence-level">Confirmado por Usuario</span>, <span class="confidence-level">Alta</span>, <span class="confidence-level">Media</span>, <span class="confidence-level">Baja</span></span>
+					</p>
+					<p>
+						<span>Excluded</span>:
+						
+						
+						<span class="included-confidence-codes"> <span class="confidence-level">Confirmado por Usuario</span>, <span class="confidence-level">Alta</span>, <span class="confidence-level">Media</span>, <span class="confidence-level">Baja</span>, <span class="confidence-level">Falso positivo</span></span>
+					</p>
+				</div>
+			</section>
+		</section>
+
+		
+		<section>
+			
+		</section>
+		
+		<section id="summaries" class="summaries">
+			<h2>Summaries</h2>
+
+			<section
+				id="risk-confidence-counts">
+				<h3>Alert Counts by Risk and Confidence</h3>
+				<table class="risk-confidence-counts-table">
+					<caption>
+						<p>This table shows the number of alerts for each level of risk and confidence included in the report.</p>
+						<p>(The percentages in brackets represent the count as a percentage of the total number of alerts included in the report, rounded to one decimal place.)</p>
+					</caption>
+					<colgroup>
+						<col>
+						<col>
+					</colgroup>
+					<colgroup>
+						<col
+							style="width: 14.0%"><col
+							style="width: 14.0%"><col
+							style="width: 14.0%"><col
+							style="width: 14.0%">
+						<col style="width: 14.0%">
+					</colgroup>
+					<thead>
+						<tr>
+							<td colspan="2" rowspan="2"></td>
+							<th scope="colgroup"
+								colspan="5">Confidence</th>
+						</tr>
+						<tr>
+							<th scope="col">Confirmado por Usuario</th>
+							<th scope="col">Alta</th>
+							<th scope="col">Media</th>
+							<th scope="col">Baja</th>
+							<th scope="col">Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="rowgroup"
+								rowspan="5">Risk</th>
+							<th scope="row">Alto</th>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0 %)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0 %)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0 %)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0 %)</span></td>
+							<td><span>0</span><br> <span class="additional-info-percentages">(0,0 %)</span></td>
+						</tr>
+						<tr>
+							
+							<th scope="row">Medio</th>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0 %)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0 %)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0 %)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0 %)</span></td>
+							<td><span>0</span><br> <span class="additional-info-percentages">(0,0 %)</span></td>
+						</tr>
+						<tr>
+							
+							<th scope="row">Bajo</th>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0 %)</span></td>
+							<td><span>1</span><br> <span
+								class="additional-info-percentages">(20,0 %)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0 %)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0 %)</span></td>
+							<td><span>1</span><br> <span class="additional-info-percentages">(20,0 %)</span></td>
+						</tr>
+						<tr>
+							
+							<th scope="row">Informativo</th>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0 %)</span></td>
+							<td><span>1</span><br> <span
+								class="additional-info-percentages">(20,0 %)</span></td>
+							<td><span>2</span><br> <span
+								class="additional-info-percentages">(40,0 %)</span></td>
+							<td><span>1</span><br> <span
+								class="additional-info-percentages">(20,0 %)</span></td>
+							<td><span>4</span><br> <span class="additional-info-percentages">(80,0 %)</span></td>
+						</tr>
+						<tr>
+							<th scope="row">Total</th>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0 %)</span></td>
+							<td><span>2</span><br> <span
+								class="additional-info-percentages">(40,0 %)</span></td>
+							<td><span>2</span><br> <span
+								class="additional-info-percentages">(40,0 %)</span></td>
+							<td><span>1</span><br> <span
+								class="additional-info-percentages">(20,0 %)</span></td>
+							<td><span>5</span><br> <span
+								class="additional-info-percentages">(100%)</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
+
+			<section
+				id="site-risk-counts">
+				<h3>Alert Counts by Site and Risk</h3>
+				<table class="site-risk-counts-table">
+					<caption>
+						<p>This table shows, for each site for which one or more alerts were raised, the number of alerts raised at each risk level.</p>
+						<p>Alerts with a confidence level of &quot;False Positive&quot; have been excluded from these counts.</p>
+						<p>(The numbers in brackets are the number of alerts raised for the site at or above that risk level.)</p>
+					</caption>
+					<colgroup>
+						<col>
+						<col>
+					</colgroup>
+					<colgroup>
+						<col
+							style="width: 16.25%"><col
+							style="width: 16.25%"><col
+							style="width: 16.25%"><col
+							style="width: 16.25%">
+					</colgroup>
+					<thead>
+						<tr>
+							<td colspan="2" rowspan="2"></td>
+							<th scope="colgroup" colspan="4">Risk</th>
+						</tr>
+						<tr>
+							<th scope="col">
+								<span>Alto</span><br>  <span
+									class="additional-info-percentages">(= Alto)</span>  
+							</th>
+							<th scope="col">
+								<span>Medio</span><br>   <span
+									class="additional-info-percentages">(&gt;= Medio)</span> 
+							</th>
+							<th scope="col">
+								<span>Bajo</span><br>   <span
+									class="additional-info-percentages">(&gt;= Bajo)</span> 
+							</th>
+							<th scope="col">
+								<span>Informativo</span><br>   <span
+									class="additional-info-percentages">(&gt;= Informativo)</span> 
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="rowgroup"
+								rowspan="1">Site</th>
+							<th scope="row">https://98.89.36.125</th>
+							
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0)</span></td>
+							<td><span>1</span><br> <span
+								class="additional-info-percentages">(1)</span></td>
+							<td><span>4</span><br> <span
+								class="additional-info-percentages">(5)</span></td>
+							
+						</tr>
+					</tbody>
+				</table>
+			</section>
+
+			<section
+				id="alert-type-counts">
+				<h3>Alert Counts by Alert Type</h3>
+				<table class="alert-type-counts-table">
+					<caption>
+						<p>This table shows the number of alerts of each alert type, together with the alert type&#39;s risk level.</p>
+						<p>(The percentages in brackets represent each count as a percentage, rounded to one decimal place, of the total number of alerts included in this report.)</p>
+					</caption>
+					<thead>
+						<tr>
+							<th scope="col">Alert type</th>
+							<th scope="col">Risk</th>
+							<th scope="col">Count</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row"><a
+								href="#alert-type-0">Strict-Transport-Security Múltiples Cabeceras (No cumple con las especificaciones)</a></th>
+							<td class="risk-level">Bajo</td>
+							<td><span>9</span><br> <span
+								class="additional-info-percentages">(180,0 %)</span></td>
+						</tr>
+						<tr>
+							<th scope="row"><a
+								href="#alert-type-1">Atributo de elemento HTML controlable por el usuario (XSS potencial)</a></th>
+							<td class="risk-level">Informativo</td>
+							<td><span>8</span><br> <span
+								class="additional-info-percentages">(160,0 %)</span></td>
+						</tr>
+						<tr>
+							<th scope="row"><a
+								href="#alert-type-2">Petición de Autenticación Identificada</a></th>
+							<td class="risk-level">Informativo</td>
+							<td><span>2</span><br> <span
+								class="additional-info-percentages">(40,0 %)</span></td>
+						</tr>
+						<tr>
+							<th scope="row"><a
+								href="#alert-type-3">Respuesta de Gestión de Sesión Identificada</a></th>
+							<td class="risk-level">Informativo</td>
+							<td><span>9</span><br> <span
+								class="additional-info-percentages">(180,0 %)</span></td>
+						</tr>
+						<tr>
+							<th scope="row"><a
+								href="#alert-type-4">User Agent Fuzzer</a></th>
+							<td class="risk-level">Informativo</td>
+							<td><span>10</span><br> <span
+								class="additional-info-percentages">(200,0 %)</span></td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th scope="row">Total</th>
+							<td></td>
+							<td>5</td>
+						</tr>
+					</tfoot>
+				</table>
+			</section>
+			
+			<section
+				id="insights">
+				<h3 class="left-header">Insights</h3>
+				
+				<table class="insights-table">
+						<caption>
+						<p>This table shows information that is likely to be very relevant to you, but which is not related to vulnerabilities, or potentially even related to the application in question.</p>
+					</caption>
+					<thead>
+					<tr>
+						<th scope="col">Level</th>
+						<th scope="col">Razón</th>
+						<th scope="col">Site</th>
+						<th scope="col">Descripción</th>
+						<th scope="col">Statistic</th>
+					</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+						<td class="risk-2">
+							<div>Medio</div>
+						</td>
+						<td>
+							<div>Exceeded High</div>
+						</td>
+						<td>
+							<div>https://52.91.43.161</div>
+						</td>
+						<td>
+							<div>Percentage of responses with status code 4xx</div>
+						</td>
+						<td align="center">
+							<div>69 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-1">
+							<div>Bajo</div>
+						</td>
+						<td>
+							<div>Advertencia</div>
+						</td>
+						<td>
+							<div></div>
+						</td>
+						<td>
+							<div>ZAP errors logged - see the zap.log file for details</div>
+						</td>
+						<td align="center">
+							<div>12   </div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-1">
+							<div>Bajo</div>
+						</td>
+						<td>
+							<div>Advertencia</div>
+						</td>
+						<td>
+							<div></div>
+						</td>
+						<td>
+							<div>ZAP warnings logged - see the zap.log file for details</div>
+						</td>
+						<td align="center">
+							<div>11   </div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-1">
+							<div>Bajo</div>
+						</td>
+						<td>
+							<div>Exceeded High</div>
+						</td>
+						<td>
+							<div>https://52.91.43.161</div>
+						</td>
+						<td>
+							<div>Percentage of slow responses</div>
+						</td>
+						<td align="center">
+							<div>100 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-1">
+							<div>Bajo</div>
+						</td>
+						<td>
+							<div>Exceeded High</div>
+						</td>
+						<td>
+							<div>https://98.89.36.125</div>
+						</td>
+						<td>
+							<div>Percentage of slow responses</div>
+						</td>
+						<td align="center">
+							<div>100 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>http://52.91.43.161</div>
+						</td>
+						<td>
+							<div>Percentage of responses with status code 3xx</div>
+						</td>
+						<td align="center">
+							<div>100 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>http://52.91.43.161</div>
+						</td>
+						<td>
+							<div>Percentage of slow responses</div>
+						</td>
+						<td align="center">
+							<div>100 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>http://98.89.36.125</div>
+						</td>
+						<td>
+							<div>Percentage of responses with status code 3xx</div>
+						</td>
+						<td align="center">
+							<div>100 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>http://98.89.36.125</div>
+						</td>
+						<td>
+							<div>Percentage of slow responses</div>
+						</td>
+						<td align="center">
+							<div>100 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://52.91.43.161</div>
+						</td>
+						<td>
+							<div>Percentage of responses with status code 2xx</div>
+						</td>
+						<td align="center">
+							<div>24 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://52.91.43.161</div>
+						</td>
+						<td>
+							<div>Percentage of responses with status code 3xx</div>
+						</td>
+						<td align="center">
+							<div>6 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://52.91.43.161</div>
+						</td>
+						<td>
+							<div>Percentage of endpoints with content type application/json</div>
+						</td>
+						<td align="center">
+							<div>100 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://52.91.43.161</div>
+						</td>
+						<td>
+							<div>Percentage of endpoints with method GET</div>
+						</td>
+						<td align="center">
+							<div>83 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://52.91.43.161</div>
+						</td>
+						<td>
+							<div>Percentage of endpoints with method POST</div>
+						</td>
+						<td align="center">
+							<div>16 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://52.91.43.161</div>
+						</td>
+						<td>
+							<div>Count of total endpoints</div>
+						</td>
+						<td align="center">
+							<div>6   </div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://98.89.36.125</div>
+						</td>
+						<td>
+							<div>Percentage of responses with status code 2xx</div>
+						</td>
+						<td align="center">
+							<div>61 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://98.89.36.125</div>
+						</td>
+						<td>
+							<div>Percentage of responses with status code 3xx</div>
+						</td>
+						<td align="center">
+							<div>3 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Exceeded Low</div>
+						</td>
+						<td>
+							<div>https://98.89.36.125</div>
+						</td>
+						<td>
+							<div>Percentage of responses with status code 4xx</div>
+						</td>
+						<td align="center">
+							<div>34 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://98.89.36.125</div>
+						</td>
+						<td>
+							<div>Percentage of endpoints with content type application/json</div>
+						</td>
+						<td align="center">
+							<div>7 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://98.89.36.125</div>
+						</td>
+						<td>
+							<div>Percentage of endpoints with content type application/xml</div>
+						</td>
+						<td align="center">
+							<div>3 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://98.89.36.125</div>
+						</td>
+						<td>
+							<div>Percentage of endpoints with content type text/css</div>
+						</td>
+						<td align="center">
+							<div>7 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://98.89.36.125</div>
+						</td>
+						<td>
+							<div>Percentage of endpoints with content type text/html</div>
+						</td>
+						<td align="center">
+							<div>34 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://98.89.36.125</div>
+						</td>
+						<td>
+							<div>Percentage of endpoints with content type text/plain</div>
+						</td>
+						<td align="center">
+							<div>15 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://98.89.36.125</div>
+						</td>
+						<td>
+							<div>Percentage of endpoints with method GET</div>
+						</td>
+						<td align="center">
+							<div>84 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://98.89.36.125</div>
+						</td>
+						<td>
+							<div>Percentage of endpoints with method POST</div>
+						</td>
+						<td align="center">
+							<div>15 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://98.89.36.125</div>
+						</td>
+						<td>
+							<div>Count of total endpoints</div>
+						</td>
+						<td align="center">
+							<div>26   </div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://clientservices.googleapis.com</div>
+						</td>
+						<td>
+							<div>Percentage of responses with status code 2xx</div>
+						</td>
+						<td align="center">
+							<div>100 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://clientservices.googleapis.com</div>
+						</td>
+						<td>
+							<div>Percentage of endpoints with content type text/plain</div>
+						</td>
+						<td align="center">
+							<div>100 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://clientservices.googleapis.com</div>
+						</td>
+						<td>
+							<div>Percentage of endpoints with method POST</div>
+						</td>
+						<td align="center">
+							<div>100 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://clientservices.googleapis.com</div>
+						</td>
+						<td>
+							<div>Count of total endpoints</div>
+						</td>
+						<td align="center">
+							<div>1   </div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://clientservices.googleapis.com</div>
+						</td>
+						<td>
+							<div>Percentage of slow responses</div>
+						</td>
+						<td align="center">
+							<div>100 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://content-autofill.googleapis.com</div>
+						</td>
+						<td>
+							<div>Percentage of responses with status code 2xx</div>
+						</td>
+						<td align="center">
+							<div>100 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://content-autofill.googleapis.com</div>
+						</td>
+						<td>
+							<div>Percentage of endpoints with content type text/plain</div>
+						</td>
+						<td align="center">
+							<div>100 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://content-autofill.googleapis.com</div>
+						</td>
+						<td>
+							<div>Percentage of endpoints with method GET</div>
+						</td>
+						<td align="center">
+							<div>100 %</div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://content-autofill.googleapis.com</div>
+						</td>
+						<td>
+							<div>Count of total endpoints</div>
+						</td>
+						<td align="center">
+							<div>3   </div>
+						</td>
+						</tr>
+					
+						<tr>
+						<td class="risk-0">
+							<div>Información</div>
+						</td>
+						<td>
+							<div>Informativo</div>
+						</td>
+						<td>
+							<div>https://content-autofill.googleapis.com</div>
+						</td>
+						<td>
+							<div>Percentage of slow responses</div>
+						</td>
+						<td align="center">
+							<div>100 %</div>
+						</td>
+						</tr>
+					
+					</tbody>
+				</table>
+			</section>
+		</section>
+
+		<section id="alerts" class="alerts">
+			<h2>Alerts</h2>
+			<ol>
+				
+				 
+				 
+				 
+				
+				
+				<li id="alerts--risk-1-confidence-3">
+					<h3>
+						<span>Risk</span>=<span
+							class="risk-level">Bajo</span>, <span>Confidence</span>=<span
+							class="confidence-level">Alta</span> <span>(1)</span>
+					</h3>
+					<ol>
+						
+						<li class="alerts--site-li">
+							<h4>
+								<span class="site">https://98.89.36.125</span> <span>(1)</span>
+							</h4>
+							<ol>
+								
+								<li>
+									<h5>
+										<a
+											href="#alert-type-0">Strict-Transport-Security Múltiples Cabeceras (No cumple con las especificaciones)</a> <span>(1)</span>
+									</h5>
+									<ol>
+										<li><details>
+												<summary>
+													<span class="request-method-n-url">GET https://98.89.36.125/</span>
+												</summary>
+												
+<table class="alerts-table">
+	<tr>
+		<th scope="row">Alert tags</th>
+		<td>
+			<ul class="alert-tags-list">
+				<li>
+					<span><a href="https://owasp.org/Top10/2021/A05_2021-Security_Misconfiguration/">OWASP_2021_A05</a></span> 
+				</li>
+				<li>
+					 <span>POLICY_QA_STD = </span>
+				</li>
+				<li>
+					 <span>POLICY_PENTEST = </span>
+				</li>
+				<li>
+					<span><a href="https://www.zaproxy.org/docs/desktop/addons/common-library/alerttags/#systemic">SYSTEMIC</a></span> 
+				</li>
+				<li>
+					<span><a href="https://cwe.mitre.org/data/definitions/319.html">CWE-319</a></span> 
+				</li>
+				<li>
+					<span><a href="https://owasp.org/www-project-top-ten/2017/A6_2017-Security_Misconfiguration.html">OWASP_2017_A06</a></span> 
+				</li>
+				<li>
+					<span><a href="https://owasp.org/Top10/2025/A02_2025-Security_Misconfiguration/">OWASP_2025_A02</a></span> 
+				</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Alert description</th>
+		<td> 
+<p>Se encontraron cabeceras HTTP Strict Transport Security (HSTS), una respuesta con múltiples entradas de encabezado HSTS no cumple con la especificación (RFC 6797) y sólo se procesará el primer encabezado HSTS. Los demás serán ignorados por los navegadores o la política HSTS puede ser aplicado incorrectamente.</p>
+
+<p>HTTP Strict Transport Security (HSTS) es un mecanismo de política de seguridad web mediante el cual un servidor web declara que los agentes de usuario que cumplen (como un navegador web) deben interactuar con él utilizando sólo conexiones HTTPS seguras (es decir, HTTP en capas sobre TLS/SSL).</p>
+ </td>
+	</tr>
+	
+	<tr>
+		<th scope="row">Request</th>
+		<td><details open="open">
+				<summary>Request line and header section (226 bytes)</summary>
+				
+				<pre><code>GET https://98.89.36.125/ HTTP/1.1
+host: 98.89.36.125
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+pragma: no-cache
+cache-control: no-cache
+
+</code></pre>
+				
+				
+			</details> <details class="request-body" open="open">
+				<summary>Request body (0 bytes)</summary>
+				
+				<pre><code></code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Response</th>
+		<td><details open="open">
+				<summary>Status line and header section (633 bytes)</summary>
+				
+				<pre><code>HTTP/1.1 200
+Date: Tue, 03 Nov 2026 22:25:25 GMT
+Server: Apache
+Strict-Transport-Security: max-age=31536000
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Strict-Transport-Security: max-age=31536000 ; includeSubDomains
+X-Frame-Options: DENY
+Content-Security-Policy: default-src &#39;self&#39;; img-src &#39;self&#39; data:; style-src &#39;self&#39;; script-src &#39;self&#39;; frame-ancestors &#39;none&#39;; form-action &#39;self&#39;
+Referrer-Policy: strict-origin-when-cross-origin
+Content-Type: text/html;charset=UTF-8
+Content-Language: en-US
+content-length: 8864
+
+</code></pre>
+				
+				
+			</details> <details class="response-body">
+				<summary>Response body (8864 bytes)</summary>
+				
+				<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;GamerZone: eventos, torneos y noticias del mundo gamer.&quot;&gt;
+    &lt;title&gt;GamerZone - Tu Zona de Eventos&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/styles.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;header class=&quot;navbar&quot;&gt;
+        &lt;div class=&quot;contenedor&quot;&gt;
+            &lt;a class=&quot;logo&quot; href=&quot;/&quot;&gt;Gamer&lt;span&gt;Zone&lt;/span&gt;&lt;/a&gt;
+
+            &lt;nav aria-label=&quot;Navegación principal&quot;&gt;
+                &lt;ul class=&quot;nav-links&quot;&gt;
+                    &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Inicio&lt;/a&gt;&lt;/li&gt;
+                    &lt;!-- /eventos es privada: si no hay sesión, Spring Security redirige al login --&gt;
+                    &lt;li&gt;&lt;a href=&quot;/eventos&quot;&gt;Eventos&lt;/a&gt;&lt;/li&gt;
+                    
+                    &lt;!-- Ocultar el enlace es solo comodidad visual, NO es seguridad --&gt;
+                    
+                &lt;/ul&gt;
+            &lt;/nav&gt;
+
+            &lt;div class=&quot;usuario&quot;&gt;
+                
+
+                
+                    &lt;a class=&quot;btn btn-secundario&quot; href=&quot;/registro&quot;&gt;Registrarse&lt;/a&gt;
+                    &lt;a class=&quot;btn btn-primario&quot; href=&quot;/login&quot;&gt;Iniciar sesión&lt;/a&gt;
+                
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        &lt;!-- ===== Hero ===== --&gt;
+        &lt;section class=&quot;hero&quot;&gt;
+            &lt;div class=&quot;contenedor&quot;&gt;
+                &lt;h1&gt;Bienvenido a &lt;span&gt;GamerZone&lt;/span&gt;&lt;/h1&gt;
+                &lt;p&gt;Encuentra torneos, LAN parties y ferias gamer cerca de ti, y súmate a la comunidad.&lt;/p&gt;
+                &lt;div class=&quot;hero-acciones&quot;&gt;
+                    &lt;a href=&quot;#destacados&quot; class=&quot;btn btn-primario&quot;&gt;Ver eventos&lt;/a&gt;
+                    &lt;a href=&quot;/registro&quot; class=&quot;btn btn-secundario&quot;&gt;Crear cuenta gratis&lt;/a&gt;
+                    
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/section&gt;
+
+        &lt;!-- ===== Eventos destacados ===== --&gt;
+        &lt;section id=&quot;destacados&quot; class=&quot;seccion&quot;&gt;
+            &lt;div class=&quot;contenedor&quot;&gt;
+                &lt;h2 class=&quot;seccion-titulo&quot;&gt;⭐ Eventos destacados&lt;/h2&gt;
+
+                &lt;div class=&quot;grid-eventos&quot;&gt;
+                    &lt;article class=&quot;card card-destacado&quot;&gt;
+                        &lt;span class=&quot;card-etiqueta&quot;&gt;Torneo&lt;/span&gt;
+                        &lt;h3&gt;Torneo Valorant 5v5&lt;/h3&gt;
+                        &lt;p&gt;Arma tu equipo y compite por el primer lugar en nuestro torneo mensual. Fase de grupos y playoffs al mejor de tres.&lt;/p&gt;
+                        &lt;span class=&quot;card-fecha&quot;&gt;📅 15/11/2026 · 📍 Santiago&lt;/span&gt;
+                        &lt;a class=&quot;card-link&quot; href=&quot;/eventos/1&quot;&gt;Ver detalle →&lt;/a&gt;
+                    &lt;/article&gt;
+                    &lt;article class=&quot;card card-destacado&quot;&gt;
+                        &lt;span class=&quot;card-etiqueta&quot;&gt;LAN Party&lt;/span&gt;
+                        &lt;h3&gt;LAN Party Santiago&lt;/h3&gt;
+                        &lt;p&gt;Trae tu equipo y juega toda la noche con la comunidad GamerZone. Mesas, energía y red cableada para 200 jugadores.&lt;/p&gt;
+                        &lt;span class=&quot;card-fecha&quot;&gt;📅 22/11/2026 · 📍 Santiago&lt;/span&gt;
+                        &lt;a class=&quot;card-link&quot; href=&quot;/eventos/2&quot;&gt;Ver detalle →&lt;/a&gt;
+                    &lt;/article&gt;
+                    &lt;article class=&quot;card card-destacado&quot;&gt;
+                        &lt;span class=&quot;card-etiqueta&quot;&gt;Feria&lt;/span&gt;
+                        &lt;h3&gt;Feria Retro Gaming&lt;/h3&gt;
+                        &lt;p&gt;Consolas clásicas, arcades, coleccionables y zona de juego libre para toda la familia.&lt;/p&gt;
+                        &lt;span class=&quot;card-fecha&quot;&gt;📅 05/12/2026 · 📍 Valparaíso&lt;/span&gt;
+                        &lt;a class=&quot;card-link&quot; href=&quot;/eventos/4&quot;&gt;Ver detalle →&lt;/a&gt;
+                    &lt;/article&gt;
+                &lt;/div&gt;
+
+                
+            &lt;/div&gt;
+        &lt;/section&gt;
+
+        &lt;!-- ===== Próximos eventos ===== --&gt;
+        &lt;section id=&quot;proximos&quot; class=&quot;seccion seccion-alterna&quot;&gt;
+            &lt;div class=&quot;contenedor&quot;&gt;
+                &lt;h2 class=&quot;seccion-titulo&quot;&gt;Próximos eventos&lt;/h2&gt;
+
+                &lt;div class=&quot;grid-eventos&quot;&gt;
+                    &lt;article class=&quot;card&quot;&gt;
+                        &lt;span class=&quot;card-etiqueta&quot;&gt;Torneo&lt;/span&gt;
+                        &lt;h3&gt;Torneo Valorant 5v5&lt;/h3&gt;
+                        &lt;span class=&quot;card-fecha&quot;&gt;📅 15/11/2026 · 🕒 15:00 · 📍 Santiago&lt;/span&gt;
+                        &lt;a class=&quot;card-link&quot; href=&quot;/eventos/1&quot;&gt;Ver detalle →&lt;/a&gt;
+                    &lt;/article&gt;
+                    &lt;article class=&quot;card&quot;&gt;
+                        &lt;span class=&quot;card-etiqueta&quot;&gt;LAN Party&lt;/span&gt;
+                        &lt;h3&gt;LAN Party Santiago&lt;/h3&gt;
+                        &lt;span class=&quot;card-fecha&quot;&gt;📅 22/11/2026 · 🕒 18:00 · 📍 Santiago&lt;/span&gt;
+                        &lt;a class=&quot;card-link&quot; href=&quot;/eventos/2&quot;&gt;Ver detalle →&lt;/a&gt;
+                    &lt;/article&gt;
+                    &lt;article class=&quot;card&quot;&gt;
+                        &lt;span class=&quot;card-etiqueta&quot;&gt;Online&lt;/span&gt;
+                        &lt;h3&gt;Speedrun Challenge&lt;/h3&gt;
+                        &lt;span class=&quot;card-fecha&quot;&gt;📅 30/11/2026 · 🕒 20:00 · 📍 Online&lt;/span&gt;
+                        &lt;a class=&quot;card-link&quot; href=&quot;/eventos/3&quot;&gt;Ver detalle →&lt;/a&gt;
+                    &lt;/article&gt;
+                    &lt;article class=&quot;card&quot;&gt;
+                        &lt;span class=&quot;card-etiqueta&quot;&gt;Feria&lt;/span&gt;
+                        &lt;h3&gt;Feria Retro Gaming&lt;/h3&gt;
+                        &lt;span class=&quot;card-fecha&quot;&gt;📅 05/12/2026 · 🕒 11:00 · 📍 Valparaíso&lt;/span&gt;
+                        &lt;a class=&quot;card-link&quot; href=&quot;/eventos/4&quot;&gt;Ver detalle →&lt;/a&gt;
+                    &lt;/article&gt;
+                    &lt;article class=&quot;card&quot;&gt;
+                        &lt;span class=&quot;card-etiqueta&quot;&gt;Torneo&lt;/span&gt;
+                        &lt;h3&gt;Torneo FC Clausura&lt;/h3&gt;
+                        &lt;span class=&quot;card-fecha&quot;&gt;📅 12/12/2026 · 🕒 16:00 · 📍 Concepción&lt;/span&gt;
+                        &lt;a class=&quot;card-link&quot; href=&quot;/eventos/5&quot;&gt;Ver detalle →&lt;/a&gt;
+                    &lt;/article&gt;
+                    &lt;article class=&quot;card&quot;&gt;
+                        &lt;span class=&quot;card-etiqueta&quot;&gt;Charla&lt;/span&gt;
+                        &lt;h3&gt;Encuentro Indie Devs&lt;/h3&gt;
+                        &lt;span class=&quot;card-fecha&quot;&gt;📅 19/12/2026 · 🕒 10:30 · 📍 Santiago&lt;/span&gt;
+                        &lt;a class=&quot;card-link&quot; href=&quot;/eventos/6&quot;&gt;Ver detalle →&lt;/a&gt;
+                    &lt;/article&gt;
+                &lt;/div&gt;
+
+                
+            &lt;/div&gt;
+        &lt;/section&gt;
+
+        &lt;!-- ===== Publicidad de marcas asociadas ===== --&gt;
+        &lt;section id=&quot;marcas&quot; class=&quot;seccion&quot;&gt;
+            &lt;div class=&quot;contenedor&quot;&gt;
+                &lt;h2 class=&quot;seccion-titulo&quot;&gt;Marcas asociadas&lt;/h2&gt;
+
+                &lt;div class=&quot;grid-marcas&quot;&gt;
+                    &lt;article class=&quot;marca&quot;&gt;
+                        &lt;span class=&quot;marca-publicidad&quot;&gt;Publicidad&lt;/span&gt;
+                        &lt;h3 class=&quot;marca-nombre&quot;&gt;HexaGear&lt;/h3&gt;
+                        &lt;span class=&quot;marca-rubro&quot;&gt;Periféricos&lt;/span&gt;
+                        &lt;p&gt;Teclados mecánicos y mouses de precisión para competir.&lt;/p&gt;
+                        &lt;span class=&quot;marca-oferta&quot;&gt;15% dcto. con código GZ15&lt;/span&gt;
+                    &lt;/article&gt;
+                    &lt;article class=&quot;marca&quot;&gt;
+                        &lt;span class=&quot;marca-publicidad&quot;&gt;Publicidad&lt;/span&gt;
+                        &lt;h3 class=&quot;marca-nombre&quot;&gt;PixelFuel&lt;/h3&gt;
+                        &lt;span class=&quot;marca-rubro&quot;&gt;Bebidas energéticas&lt;/span&gt;
+                        &lt;p&gt;La energía oficial de las LAN Party GamerZone.&lt;/p&gt;
+                        &lt;span class=&quot;marca-oferta&quot;&gt;2x1 en eventos presenciales&lt;/span&gt;
+                    &lt;/article&gt;
+                    &lt;article class=&quot;marca&quot;&gt;
+                        &lt;span class=&quot;marca-publicidad&quot;&gt;Publicidad&lt;/span&gt;
+                        &lt;h3 class=&quot;marca-nombre&quot;&gt;NovaNet&lt;/h3&gt;
+                        &lt;span class=&quot;marca-rubro&quot;&gt;Internet fibra&lt;/span&gt;
+                        &lt;p&gt;Fibra óptica con baja latencia para que nunca pierdas una partida.&lt;/p&gt;
+                        &lt;span class=&quot;marca-oferta&quot;&gt;3 meses a mitad de precio&lt;/span&gt;
+                    &lt;/article&gt;
+                    &lt;article class=&quot;marca&quot;&gt;
+                        &lt;span class=&quot;marca-publicidad&quot;&gt;Publicidad&lt;/span&gt;
+                        &lt;h3 class=&quot;marca-nombre&quot;&gt;Arcadia&lt;/h3&gt;
+                        &lt;span class=&quot;marca-rubro&quot;&gt;Sillas gamer&lt;/span&gt;
+                        &lt;p&gt;Comodidad para maratones de juego de muchas horas.&lt;/p&gt;
+                        &lt;span class=&quot;marca-oferta&quot;&gt;Despacho gratis a todo Chile&lt;/span&gt;
+                    &lt;/article&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+
+    &lt;footer class=&quot;footer&quot;&gt;
+        &lt;div class=&quot;contenedor&quot;&gt;
+            &lt;p&gt;&amp;copy; &lt;span&gt;2026&lt;/span&gt; GamerZone. Todos los derechos reservados.&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+				
+				
+			</details></td>
+	</tr>
+	
+	
+	
+	<tr>
+		<th scope="row">Solution</th>
+		<td> 
+<p>Asegúrese de que sólo un componente en su pila: código, servidor web, servidor de aplicaciones, balanceador de carga, etc. esté configurado para establecer o agregar un encabezado HTTP Strict-Transport-Security (HSTS).</p>
+ </td>
+	</tr>
+</table>
+
+											</details></li>
+									</ol>
+								</li>
+								
+							</ol>
+						</li>
+						
+					</ol>
+				</li>
+				
+				
+				
+				
+				  
+				 
+				
+				
+				<li id="alerts--risk-0-confidence-3">
+					<h3>
+						<span>Risk</span>=<span
+							class="risk-level">Informativo</span>, <span>Confidence</span>=<span
+							class="confidence-level">Alta</span> <span>(1)</span>
+					</h3>
+					<ol>
+						
+						<li class="alerts--site-li">
+							<h4>
+								<span class="site">https://98.89.36.125</span> <span>(1)</span>
+							</h4>
+							<ol>
+								
+								<li>
+									<h5>
+										<a
+											href="#alert-type-2">Petición de Autenticación Identificada</a> <span>(1)</span>
+									</h5>
+									<ol>
+										<li><details>
+												<summary>
+													<span class="request-method-n-url">POST https://98.89.36.125/login</span>
+												</summary>
+												
+<table class="alerts-table">
+	<tr>
+		<th scope="row">Alert tags</th>
+		<td>
+			<ul class="alert-tags-list">
+				
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Alert description</th>
+		<td> 
+<p>La petición en cuestión se ha identificado como una petición de autenticación. El campo &quot;Otra información&quot; contiene un conjunto de líneas key=vvalue que identifican cualquier campo relevante. Si la solicitud está en un contexto que tiene un método de autenticación configurado como &quot;Detección automática&quot;, esta regla cambiará la autenticación para que coincida con la petición identificada.</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Other info</th>
+		<td> 
+<p>userParam=username</p>
+
+<p>userValue=ZAP</p>
+
+<p>passwordParam=password</p>
+
+<p>referer=https://98.89.36.125/login</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Request</th>
+		<td><details open="open">
+				<summary>Request line and header section (392 bytes)</summary>
+				
+				<pre><code>POST https://98.89.36.125/login HTTP/1.1
+host: 98.89.36.125
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+pragma: no-cache
+cache-control: no-cache
+content-type: application/x-www-form-urlencoded
+referer: https://98.89.36.125/login
+content-length: 128
+Cookie: JSESSIONID=DD61B6032DBD31B048D8004A9702B856
+
+</code></pre>
+				
+				
+			</details> <details class="request-body" open="open">
+				<summary>Request body (128 bytes)</summary>
+				
+				<pre><code>_csrf=bbbszbeP0y5RGelUQ71sCUfkr4lu0ABzig4sLrLtWUy4whtBVNSKq9Tt4x18L9s2d5BYPybRgusM6TVevT1NTNTbbHyL-i8l&amp;username=ZAP&amp;password=ZAP</code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Response</th>
+		<td><details open="open">
+				<summary>Status line and header section (599 bytes)</summary>
+				
+				<pre><code>HTTP/1.1 403
+Date: Tue, 03 Nov 2026 22:25:26 GMT
+Server: Apache
+Strict-Transport-Security: max-age=31536000
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Strict-Transport-Security: max-age=31536000 ; includeSubDomains
+X-Frame-Options: DENY
+Content-Security-Policy: default-src &#39;self&#39;; img-src &#39;self&#39; data:; style-src &#39;self&#39;; script-src &#39;self&#39;; frame-ancestors &#39;none&#39;; form-action &#39;self&#39;
+Referrer-Policy: strict-origin-when-cross-origin
+Content-Type: application/json
+content-length: 89
+
+</code></pre>
+				
+				
+			</details> <details class="response-body" open="open">
+				<summary>Response body (89 bytes)</summary>
+				
+				<pre><code>{&quot;timestamp&quot;:&quot;2026-11-03T22:25:26.237Z&quot;,&quot;status&quot;:403,&quot;error&quot;:&quot;Forbidden&quot;,&quot;path&quot;:&quot;/login&quot;}</code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Parameter</th>
+		<td><pre><code>username</code></pre></td>
+	</tr>
+	
+	<tr>
+		<th scope="row">Evidence</th>
+		<td><pre><code>password</code></pre></td>
+	</tr>
+	<tr>
+		<th scope="row">Solution</th>
+		<td> 
+<p>Se trata de una alerta informativa y no de una vulnerabilidad, por lo que no hay nada que corregir.</p>
+ </td>
+	</tr>
+</table>
+
+											</details></li>
+									</ol>
+								</li>
+								
+							</ol>
+						</li>
+						
+					</ol>
+				</li>
+				
+				<li id="alerts--risk-0-confidence-2">
+					<h3>
+						<span>Risk</span>=<span
+							class="risk-level">Informativo</span>, <span>Confidence</span>=<span
+							class="confidence-level">Media</span> <span>(2)</span>
+					</h3>
+					<ol>
+						
+						<li class="alerts--site-li">
+							<h4>
+								<span class="site">https://98.89.36.125</span> <span>(2)</span>
+							</h4>
+							<ol>
+								
+								<li>
+									<h5>
+										<a
+											href="#alert-type-3">Respuesta de Gestión de Sesión Identificada</a> <span>(1)</span>
+									</h5>
+									<ol>
+										<li><details>
+												<summary>
+													<span class="request-method-n-url">GET https://98.89.36.125/robots.txt</span>
+												</summary>
+												
+<table class="alerts-table">
+	<tr>
+		<th scope="row">Alert tags</th>
+		<td>
+			<ul class="alert-tags-list">
+				
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Alert description</th>
+		<td> 
+<p>Se ha identificado que la respuesta dada contiene un token de gestión de sesión. El campo &#39;Other Info&#39; contiene un conjunto de tokens de cabecera que pueden utilizarse en el método Header Based Session Management (gestión de sesión basado en cabecera). Si la petición se encuentra en un contexto que tiene un método Session Management establecido en &quot;Auto-Detect&quot;, esta regla cambiará la gestión de sesión para utilizar los tokens identificados.</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Other info</th>
+		<td> 
+<p>cookie:JSESSIONID</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Request</th>
+		<td><details open="open">
+				<summary>Request line and header section (236 bytes)</summary>
+				
+				<pre><code>GET https://98.89.36.125/robots.txt HTTP/1.1
+host: 98.89.36.125
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+pragma: no-cache
+cache-control: no-cache
+
+</code></pre>
+				
+				
+			</details> <details class="request-body" open="open">
+				<summary>Request body (0 bytes)</summary>
+				
+				<pre><code></code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Response</th>
+		<td><details open="open">
+				<summary>Status line and header section (730 bytes)</summary>
+				
+				<pre><code>HTTP/1.1 302
+Date: Tue, 03 Nov 2026 22:25:25 GMT
+Server: Apache
+Strict-Transport-Security: max-age=31536000
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Strict-Transport-Security: max-age=31536000 ; includeSubDomains
+X-Frame-Options: DENY
+Content-Security-Policy: default-src &#39;self&#39;; img-src &#39;self&#39; data:; style-src &#39;self&#39;; script-src &#39;self&#39;; frame-ancestors &#39;none&#39;; form-action &#39;self&#39;
+Referrer-Policy: strict-origin-when-cross-origin
+Location: https://98.89.36.125/login
+Content-Length: 0
+Set-Cookie: JSESSIONID=DD61B6032DBD31B048D8004A9702B856; Path=/; Secure; HttpOnly; SameSite=Strict
+Content-Type: text/plain
+
+</code></pre>
+				
+				
+			</details> <details class="response-body" open="open">
+				<summary>Response body (0 bytes)</summary>
+				
+				<pre><code></code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Parameter</th>
+		<td><pre><code>JSESSIONID</code></pre></td>
+	</tr>
+	
+	<tr>
+		<th scope="row">Evidence</th>
+		<td><pre><code>JSESSIONID</code></pre></td>
+	</tr>
+	<tr>
+		<th scope="row">Solution</th>
+		<td> 
+<p>Se trata de una alerta informativa y no de una vulnerabilidad, por lo que no hay nada que corregir.</p>
+ </td>
+	</tr>
+</table>
+
+											</details></li>
+									</ol>
+								</li>
+								
+								<li>
+									<h5>
+										<a
+											href="#alert-type-4">User Agent Fuzzer</a> <span>(1)</span>
+									</h5>
+									<ol>
+										<li><details>
+												<summary>
+													<span class="request-method-n-url">POST https://98.89.36.125/registro</span>
+												</summary>
+												
+<table class="alerts-table">
+	<tr>
+		<th scope="row">Alert tags</th>
+		<td>
+			<ul class="alert-tags-list">
+				<li>
+					 <span>CUSTOM_PAYLOADS = </span>
+				</li>
+				<li>
+					 <span>POLICY_PENTEST = </span>
+				</li>
+				<li>
+					<span><a href="https://www.zaproxy.org/docs/desktop/addons/common-library/alerttags/#systemic">SYSTEMIC</a></span> 
+				</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Alert description</th>
+		<td> 
+<p>Compare las diferencias en la respuesta según el fuzzeo de User Agent (por ejemplo, sitios móviles, acceso como un motor de búsqueda). Compara el código de estado de la respuesta y el hash del cuerpo de la respuesta con la respuesta original.</p>
+ </td>
+	</tr>
+	
+	<tr>
+		<th scope="row">Request</th>
+		<td><details open="open">
+				<summary>Request line and header section (337 bytes)</summary>
+				
+				<pre><code>POST https://98.89.36.125/registro HTTP/1.1
+host: 98.89.36.125
+user-agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)
+pragma: no-cache
+cache-control: no-cache
+content-type: application/x-www-form-urlencoded
+referer: https://98.89.36.125/registro
+content-length: 177
+Cookie: JSESSIONID=DD61B6032DBD31B048D8004A9702B856
+
+</code></pre>
+				
+				
+			</details> <details class="request-body" open="open">
+				<summary>Request body (177 bytes)</summary>
+				
+				<pre><code>_csrf=c84WjO7Ckuv52q6H77NFrc9oqGk0xJA-qKEbT3QCq1fNLnxMEaoh6drwq9vUv5zm2Z5xnqwOhQhVofMTmpUrKUJjkzH8G0t1&amp;nombre=ZAP&amp;correo=foo-bar%40example.com&amp;password=ZAP&amp;confirmarPassword=ZAP</code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Response</th>
+		<td><details open="open">
+				<summary>Status line and header section (633 bytes)</summary>
+				
+				<pre><code>HTTP/1.1 200
+Date: Tue, 03 Nov 2026 22:31:46 GMT
+Server: Apache
+Strict-Transport-Security: max-age=31536000
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Strict-Transport-Security: max-age=31536000 ; includeSubDomains
+X-Frame-Options: DENY
+Content-Security-Policy: default-src &#39;self&#39;; img-src &#39;self&#39; data:; style-src &#39;self&#39;; script-src &#39;self&#39;; frame-ancestors &#39;none&#39;; form-action &#39;self&#39;
+Referrer-Policy: strict-origin-when-cross-origin
+Content-Type: text/html;charset=UTF-8
+Content-Language: en-US
+content-length: 2609
+
+</code></pre>
+				
+				
+			</details> <details class="response-body">
+				<summary>Response body (2609 bytes)</summary>
+				
+				<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;GamerZone - Crear cuenta&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/styles.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/login.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;main class=&quot;login-pagina&quot;&gt;
+        &lt;section class=&quot;login-card&quot;&gt;
+            &lt;a class=&quot;logo&quot; href=&quot;/&quot;&gt;Gamer&lt;span&gt;Zone&lt;/span&gt;&lt;/a&gt;
+            &lt;p class=&quot;login-subtitulo&quot;&gt;Crea tu cuenta y únete a la comunidad&lt;/p&gt;
+
+            &lt;!-- validaciones a nivel servidor --&gt;
+            &lt;form action=&quot;/registro&quot; method=&quot;post&quot; novalidate&gt;&lt;input type=&quot;hidden&quot; name=&quot;_csrf&quot; value=&quot;8cPxNthulFCZtoCwZUFrIXuwltrrWDR0_B5OHpasyTdLkjadk6fGU-xcrWC007LRU2xfEhjWu7uKPVdZzip-eKDN8VF6pwGk&quot;/&gt;
+                &lt;div class=&quot;campo&quot;&gt;
+                    &lt;label for=&quot;nombre&quot;&gt;Nombre&lt;/label&gt;
+                    &lt;input type=&quot;text&quot; id=&quot;nombre&quot; autocomplete=&quot;name&quot; maxlength=&quot;60&quot; required name=&quot;nombre&quot; value=&quot;ZAP&quot;&gt;
+                    
+                &lt;/div&gt;
+
+                &lt;div class=&quot;campo&quot;&gt;
+                    &lt;label for=&quot;correo&quot;&gt;Correo electrónico&lt;/label&gt;
+                    &lt;input type=&quot;email&quot; id=&quot;correo&quot; autocomplete=&quot;email&quot; maxlength=&quot;100&quot; required name=&quot;correo&quot; value=&quot;foo-bar@example.com&quot;&gt;
+                    
+                &lt;/div&gt;
+
+                &lt;div class=&quot;campo&quot;&gt;
+                    &lt;label for=&quot;password&quot;&gt;Contraseña&lt;/label&gt;
+                    &lt;input type=&quot;password&quot; id=&quot;password&quot; autocomplete=&quot;new-password&quot; maxlength=&quot;72&quot; required name=&quot;password&quot; value=&quot;&quot; class=&quot;invalido&quot;&gt;
+                    &lt;span class=&quot;campo-ayuda&quot;&gt;Mínimo 8 caracteres, con al menos una letra y un número.&lt;/span&gt;
+                    &lt;span class=&quot;campo-error&quot;&gt;La contraseña debe tener entre 8 y 72 caracteres&lt;br /&gt;La contraseña debe incluir al menos una letra y un número&lt;/span&gt;
+                &lt;/div&gt;
+
+                &lt;div class=&quot;campo&quot;&gt;
+                    &lt;label for=&quot;confirmarPassword&quot;&gt;Confirmar contraseña&lt;/label&gt;
+                    &lt;input type=&quot;password&quot; id=&quot;confirmarPassword&quot; autocomplete=&quot;new-password&quot; maxlength=&quot;72&quot; required name=&quot;confirmarPassword&quot; value=&quot;&quot;&gt;
+                    
+                &lt;/div&gt;
+
+                &lt;button type=&quot;submit&quot; class=&quot;btn btn-primario btn-bloque&quot;&gt;Crear cuenta&lt;/button&gt;
+            &lt;/form&gt;
+
+            &lt;p class=&quot;login-alternativa&quot;&gt;
+                ¿Ya tienes cuenta? &lt;a href=&quot;/login&quot;&gt;Inicia sesión&lt;/a&gt;
+            &lt;/p&gt;
+            &lt;a class=&quot;login-volver&quot; href=&quot;/&quot;&gt;← Volver al inicio&lt;/a&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Parameter</th>
+		<td><pre><code>Header User-Agent</code></pre></td>
+	</tr>
+	<tr>
+		<th scope="row">Attack</th>
+		<td><pre><code>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</code></pre></td>
+	</tr>
+	
+	
+</table>
+
+											</details></li>
+									</ol>
+								</li>
+								
+							</ol>
+						</li>
+						
+					</ol>
+				</li>
+				
+				<li id="alerts--risk-0-confidence-1">
+					<h3>
+						<span>Risk</span>=<span
+							class="risk-level">Informativo</span>, <span>Confidence</span>=<span
+							class="confidence-level">Baja</span> <span>(1)</span>
+					</h3>
+					<ol>
+						
+						<li class="alerts--site-li">
+							<h4>
+								<span class="site">https://98.89.36.125</span> <span>(1)</span>
+							</h4>
+							<ol>
+								
+								<li>
+									<h5>
+										<a
+											href="#alert-type-1">Atributo de elemento HTML controlable por el usuario (XSS potencial)</a> <span>(1)</span>
+									</h5>
+									<ol>
+										<li><details>
+												<summary>
+													<span class="request-method-n-url">POST https://98.89.36.125/registro</span>
+												</summary>
+												
+<table class="alerts-table">
+	<tr>
+		<th scope="row">Alert tags</th>
+		<td>
+			<ul class="alert-tags-list">
+				<li>
+					<span><a href="https://owasp.org/Top10/2025/A05_2025-Injection/">OWASP_2025_A05</a></span> 
+				</li>
+				<li>
+					<span><a href="https://owasp.org/www-project-top-ten/2017/A1_2017-Injection.html">OWASP_2017_A01</a></span> 
+				</li>
+				<li>
+					<span><a href="https://owasp.org/Top10/2021/A03_2021-Injection/">OWASP_2021_A03</a></span> 
+				</li>
+				<li>
+					<span><a href="https://cwe.mitre.org/data/definitions/20.html">CWE-20</a></span> 
+				</li>
+				<li>
+					 <span>POLICY_PENTEST = </span>
+				</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Alert description</th>
+		<td> 
+<p>Esta comprobación examina la entrada proporcionada por el usuario en parámetros de cadenas de consulta y datos POST para identificar dónde podrían estar controlados ciertos valores de atributos HTML. Esto proporciona detección de puntos calientes para XSS (cross-site scripting) que requerirán una revisión adicional por parte de un analista de seguridad para determinar la explotabilidad.</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Other info</th>
+		<td> 
+<p>Se han encontrado valores de atributos HTML controlados por el usuario. Intente inyectar caracteres especiales para ver si es posible XSS. La página en la siguiente URL parece incluir una entrada de usuario en una etiqueta [input] atributo [value] La entrada de usuario encontrada era:confirmarPassword=ZAP El valor controlado por el usuario era:zap.</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Request</th>
+		<td><details open="open">
+				<summary>Request line and header section (398 bytes)</summary>
+				
+				<pre><code>POST https://98.89.36.125/registro HTTP/1.1
+host: 98.89.36.125
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+pragma: no-cache
+cache-control: no-cache
+content-type: application/x-www-form-urlencoded
+referer: https://98.89.36.125/registro
+content-length: 177
+Cookie: JSESSIONID=DD61B6032DBD31B048D8004A9702B856
+
+</code></pre>
+				
+				
+			</details> <details class="request-body" open="open">
+				<summary>Request body (177 bytes)</summary>
+				
+				<pre><code>_csrf=c84WjO7Ckuv52q6H77NFrc9oqGk0xJA-qKEbT3QCq1fNLnxMEaoh6drwq9vUv5zm2Z5xnqwOhQhVofMTmpUrKUJjkzH8G0t1&amp;nombre=ZAP&amp;correo=foo-bar%40example.com&amp;password=ZAP&amp;confirmarPassword=ZAP</code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Response</th>
+		<td><details open="open">
+				<summary>Status line and header section (633 bytes)</summary>
+				
+				<pre><code>HTTP/1.1 200
+Date: Tue, 03 Nov 2026 22:25:26 GMT
+Server: Apache
+Strict-Transport-Security: max-age=31536000
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Strict-Transport-Security: max-age=31536000 ; includeSubDomains
+X-Frame-Options: DENY
+Content-Security-Policy: default-src &#39;self&#39;; img-src &#39;self&#39; data:; style-src &#39;self&#39;; script-src &#39;self&#39;; frame-ancestors &#39;none&#39;; form-action &#39;self&#39;
+Referrer-Policy: strict-origin-when-cross-origin
+Content-Type: text/html;charset=UTF-8
+Content-Language: en-US
+content-length: 2609
+
+</code></pre>
+				
+				
+			</details> <details class="response-body">
+				<summary>Response body (2609 bytes)</summary>
+				
+				<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;GamerZone - Crear cuenta&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/styles.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/login.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;main class=&quot;login-pagina&quot;&gt;
+        &lt;section class=&quot;login-card&quot;&gt;
+            &lt;a class=&quot;logo&quot; href=&quot;/&quot;&gt;Gamer&lt;span&gt;Zone&lt;/span&gt;&lt;/a&gt;
+            &lt;p class=&quot;login-subtitulo&quot;&gt;Crea tu cuenta y únete a la comunidad&lt;/p&gt;
+
+            &lt;!-- validaciones a nivel servidor --&gt;
+            &lt;form action=&quot;/registro&quot; method=&quot;post&quot; novalidate&gt;&lt;input type=&quot;hidden&quot; name=&quot;_csrf&quot; value=&quot;FepbzQd144m_9-Jv9j_36JQavoqKP-5TC1ki-TxUgqc0KD5Gd45sqDNH2rmSktAOwBLD2_d8k-vrWo1-OW0Snwo1usEFHQl_&quot;/&gt;
+                &lt;div class=&quot;campo&quot;&gt;
+                    &lt;label for=&quot;nombre&quot;&gt;Nombre&lt;/label&gt;
+                    &lt;input type=&quot;text&quot; id=&quot;nombre&quot; autocomplete=&quot;name&quot; maxlength=&quot;60&quot; required name=&quot;nombre&quot; value=&quot;ZAP&quot;&gt;
+                    
+                &lt;/div&gt;
+
+                &lt;div class=&quot;campo&quot;&gt;
+                    &lt;label for=&quot;correo&quot;&gt;Correo electrónico&lt;/label&gt;
+                    &lt;input type=&quot;email&quot; id=&quot;correo&quot; autocomplete=&quot;email&quot; maxlength=&quot;100&quot; required name=&quot;correo&quot; value=&quot;foo-bar@example.com&quot;&gt;
+                    
+                &lt;/div&gt;
+
+                &lt;div class=&quot;campo&quot;&gt;
+                    &lt;label for=&quot;password&quot;&gt;Contraseña&lt;/label&gt;
+                    &lt;input type=&quot;password&quot; id=&quot;password&quot; autocomplete=&quot;new-password&quot; maxlength=&quot;72&quot; required name=&quot;password&quot; value=&quot;&quot; class=&quot;invalido&quot;&gt;
+                    &lt;span class=&quot;campo-ayuda&quot;&gt;Mínimo 8 caracteres, con al menos una letra y un número.&lt;/span&gt;
+                    &lt;span class=&quot;campo-error&quot;&gt;La contraseña debe incluir al menos una letra y un número&lt;br /&gt;La contraseña debe tener entre 8 y 72 caracteres&lt;/span&gt;
+                &lt;/div&gt;
+
+                &lt;div class=&quot;campo&quot;&gt;
+                    &lt;label for=&quot;confirmarPassword&quot;&gt;Confirmar contraseña&lt;/label&gt;
+                    &lt;input type=&quot;password&quot; id=&quot;confirmarPassword&quot; autocomplete=&quot;new-password&quot; maxlength=&quot;72&quot; required name=&quot;confirmarPassword&quot; value=&quot;&quot;&gt;
+                    
+                &lt;/div&gt;
+
+                &lt;button type=&quot;submit&quot; class=&quot;btn btn-primario btn-bloque&quot;&gt;Crear cuenta&lt;/button&gt;
+            &lt;/form&gt;
+
+            &lt;p class=&quot;login-alternativa&quot;&gt;
+                ¿Ya tienes cuenta? &lt;a href=&quot;/login&quot;&gt;Inicia sesión&lt;/a&gt;
+            &lt;/p&gt;
+            &lt;a class=&quot;login-volver&quot; href=&quot;/&quot;&gt;← Volver al inicio&lt;/a&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Parameter</th>
+		<td><pre><code>confirmarPassword</code></pre></td>
+	</tr>
+	
+	
+	<tr>
+		<th scope="row">Solution</th>
+		<td> 
+<p>Válida la entrada y sanea la salida antes de escribirla en cualquier atributo HTML.</p>
+ </td>
+	</tr>
+</table>
+
+											</details></li>
+									</ol>
+								</li>
+								
+							</ol>
+						</li>
+						
+					</ol>
+				</li>
+				  
+			</ol>
+		</section>
+
+		<section id="appendix" class="appendix">
+			<h2>Appendix</h2>
+
+			<section id="alert-types" class="alert-types">
+				<h3>Alert Types</h3>
+				<p class="alert-types-intro">This section contains additional information on the types of alerts in the report.</p>
+				<ol>
+					<li
+						id="alert-type-0">
+						<h4>Strict-Transport-Security Múltiples Cabeceras (No cumple con las especificaciones)</h4>
+						<table class="alert-types-table">
+							<tr>
+								<th scope="row">Source</th>
+								<td>
+									
+									   <span>raised by a passive scanner</span> <span>(<a
+										href="https://www.zaproxy.org/docs/alerts/10035/">Strict-Transport-Security Header</a>)
+									</span>   
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">CWE ID</th>
+								<td><a
+									href="https://cwe.mitre.org/data/definitions/319.html">319</a></td>
+							</tr>
+							<tr>
+								<th scope="row">WASC ID</th>
+								<td>15</td>
+							</tr>
+							<tr>
+								<th scope="row">Reference</th>
+								<td>
+									<ol>
+										<li><a
+											href="https://datatracker.ietf.org/doc/html/rfc6797#section-8.1">https://datatracker.ietf.org/doc/html/rfc6797#section-8.1</a></li>
+									</ol>
+								</td>
+							</tr>
+						</table>
+					</li>
+					<li
+						id="alert-type-1">
+						<h4>Atributo de elemento HTML controlable por el usuario (XSS potencial)</h4>
+						<table class="alert-types-table">
+							<tr>
+								<th scope="row">Source</th>
+								<td>
+									
+									   <span>raised by a passive scanner</span> <span>(<a
+										href="https://www.zaproxy.org/docs/alerts/10031/">Atributo de elemento HTML controlable por el usuario (XSS potencial)</a>)
+									</span>   
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">CWE ID</th>
+								<td><a
+									href="https://cwe.mitre.org/data/definitions/20.html">20</a></td>
+							</tr>
+							<tr>
+								<th scope="row">WASC ID</th>
+								<td>20</td>
+							</tr>
+							<tr>
+								<th scope="row">Reference</th>
+								<td>
+									<ol>
+										<li><a
+											href="https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html">https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html</a></li>
+									</ol>
+								</td>
+							</tr>
+						</table>
+					</li>
+					<li
+						id="alert-type-2">
+						<h4>Petición de Autenticación Identificada</h4>
+						<table class="alert-types-table">
+							<tr>
+								<th scope="row">Source</th>
+								<td>
+									
+									   <span>raised by a passive scanner</span> <span>(<a
+										href="https://www.zaproxy.org/docs/alerts/10111/">Petición de Autenticación Identificada</a>)
+									</span>   
+								</td>
+							</tr>
+							
+							
+							<tr>
+								<th scope="row">Reference</th>
+								<td>
+									<ol>
+										<li><a
+											href="https://www.zaproxy.org/docs/desktop/addons/authentication-helper/auth-req-id/">https://www.zaproxy.org/docs/desktop/addons/authentication-helper/auth-req-id/</a></li>
+									</ol>
+								</td>
+							</tr>
+						</table>
+					</li>
+					<li
+						id="alert-type-3">
+						<h4>Respuesta de Gestión de Sesión Identificada</h4>
+						<table class="alert-types-table">
+							<tr>
+								<th scope="row">Source</th>
+								<td>
+									
+									   <span>raised by a passive scanner</span> <span>(<a
+										href="https://www.zaproxy.org/docs/alerts/10112/">Respuesta de Gestión de Sesión Identificada</a>)
+									</span>   
+								</td>
+							</tr>
+							
+							
+							<tr>
+								<th scope="row">Reference</th>
+								<td>
+									<ol>
+										<li><a
+											href="https://www.zaproxy.org/docs/desktop/addons/authentication-helper/session-mgmt-id/">https://www.zaproxy.org/docs/desktop/addons/authentication-helper/session-mgmt-id/</a></li>
+									</ol>
+								</td>
+							</tr>
+						</table>
+					</li>
+					<li
+						id="alert-type-4">
+						<h4>User Agent Fuzzer</h4>
+						<table class="alert-types-table">
+							<tr>
+								<th scope="row">Source</th>
+								<td>
+									
+									   <span>raised by an active scanner</span> <span>(<a
+										href="https://www.zaproxy.org/docs/alerts/10104/">User Agent Fuzzer</a>)
+									</span>   
+								</td>
+							</tr>
+							
+							
+							<tr>
+								<th scope="row">Reference</th>
+								<td>
+									<ol>
+										<li><a
+											href="https://owasp.org/wstg">https://owasp.org/wstg</a></li>
+									</ol>
+								</td>
+							</tr>
+						</table>
+					</li>
+				</ol>
+			</section>
+		</section>
+		 
+	</main>
+</body>
+</html>
+
+
+

@@ -52,12 +52,12 @@ Navegador ─HTTPS─►│ proxy (Apache, 443) ──red "frontend"──► ap
 | **Registro** de usuarios (nombre, correo y contraseña) | `/registro` | Pública |
 | Inicio de sesión | `/login` | Pública |
 | **Perfil**: gamertag, avatar, juegos de interés y opciones de notificación | `/perfil` | Privada |
-| **Búsqueda de eventos** por categoría, ubicación y rango de fechas | `/eventos` | Privada |
+| **Búsqueda de eventos** por categoría, ubicación y rango de fechas | `/eventos` | Pública |
 | **Detalle de evento**: descripción, dirección, fecha y hora, organizadores, servicios (estacionamiento, locomoción, comidas, alojamiento) y expositores | `/eventos/{id}` | Privada |
 | Panel de administración | `/admin` | Solo rol **ADMIN** |
 
 Además:
-- `http://IP/recetas` redirige al inicio del sitio por HTTPS.
+- `http://IP/eventos` abre la búsqueda pública de eventos (redirigiendo automáticamente a HTTPS).
 - Páginas de error personalizadas **403** (acceso denegado) y **404** (no encontrada).
 - Diseño responsivo con tema oscuro en todas las páginas.
 - Los usuarios, perfiles y eventos se guardan en **MySQL**, así que se conservan al reiniciar la aplicación.
@@ -157,7 +157,7 @@ Respuesta `200`:
 |---|---|
 | **HTTPS** | Proxy Apache con certificado SSL; solo se permiten **TLS 1.2 y 1.3**. |
 | Redirección a HTTPS | Todo el tráfico por HTTP (puerto 80) se redirige a HTTPS. |
-| HSTS | El navegador queda obligado a usar siempre HTTPS con el sitio. |
+| HSTS | El navegador queda obligado a usar siempre HTTPS con el sitio. La cabecera la envía **solo Spring Security** (`max-age=31536000 ; includeSubDomains`); se quitó del proxy porque ZAP detectó cabeceras duplicadas. |
 | **Autenticación JWT** | Tokens firmados con HMAC-SHA256, con emisor y expiración (60 minutos). |
 | Validación del token en cada petición | Un filtro verifica firma, emisor y expiración, y consulta el usuario en la BD. |
 | API sin estado | La API no usa sesión en el servidor (`STATELESS`). |
@@ -189,8 +189,9 @@ Respuesta `200`:
 
 ```
 GamerZone/
-├── db/                 → Dockerfile, my.cnf, init.sql (base de datos MySQL)
+├── db/                 → Dockerfile, my.cnf, init.sql, gamerzone_script.sql (creación e inserción de datos)
 ├── proxy/              → Dockerfile, gamerzone.conf (Apache con HTTPS)
+├── Informes ZAP/       → reportes de ZAP antes y después de las correcciones
 ├── docker-compose.yml  → orquesta db + app + proxy
 ├── .env.example        → plantilla de variables de entorno (sin secretos)
 ├── Dockerfile          → imagen de la aplicación Spring Boot
@@ -247,6 +248,14 @@ spring.jpa.hibernate.ddl-auto=update
 Las tablas (`usuario`, `usuario_rol`, `usuario_juego`, `evento`, `evento_organizador`,
 `evento_expositor`) las crea Hibernate a partir de las entidades JPA.
 
+El archivo `db/gamerzone_script.sql` contiene el script de **creación de tablas e inserción de los
+eventos** (generado con `mysqldump`). No incluye usuarios: los 3 usuarios base los crea la aplicación
+al arrancar, así no se publican hashes de contraseñas. Para cargarlo en una base vacía:
+
+```bash
+docker exec -i gamerzone-db-1 sh -c 'mysql -u gamerzone -p"$MYSQL_PASSWORD" gamerzone' < db/gamerzone_script.sql
+```
+
 ---
 
 ## 💻 Ejecutar en local
@@ -292,7 +301,7 @@ Abrir `http://localhost:8080`
 ```
 
 Los tests usan H2 en memoria, así que **no necesitan Docker**. Verifican, entre otras cosas, que:
-- las páginas públicas (`/`, `/registro`) responden sin sesión y las privadas redirigen al login,
+- las páginas públicas (`/`, `/registro`, `/eventos`) responden sin sesión y las privadas (`/eventos/{id}`, `/perfil`) redirigen al login,
 - un usuario con rol `USER` recibe **403** en `/admin` y un `ADMIN` puede entrar,
 - los 3 usuarios pueden iniciar sesión y una contraseña incorrecta es rechazada,
 - el registro crea un usuario y rechaza contraseñas débiles y solicitudes sin token CSRF,
@@ -307,9 +316,9 @@ Los tests usan H2 en memoria, así que **no necesitan Docker**. Verifican, entre
 
 | Imagen | Contenido |
 |---|---|
-| `bequian/gamerzone:2.0` | Aplicación Spring Boot (compilada en dos etapas, se ejecuta sin root) |
+| `bequian/gamerzone:2.1` | Aplicación Spring Boot (compilada en dos etapas, se ejecuta sin root) |
 | `bequian/gamerzone-db:1.0` | MySQL 8.4 con configuración UTF-8 |
-| `bequian/gamerzone-proxy:1.0` | Apache con HTTPS y proxy inverso |
+| `bequian/gamerzone-proxy:1.2` | Apache con HTTPS y proxy inverso (sin HSTS duplicado) |
 
 Ninguna imagen contiene contraseñas ni certificados: se entregan al ejecutar.
 
@@ -367,6 +376,33 @@ docker compose push
 > **Notas:**
 > - La IP pública cambia cada vez que la instancia se detiene y se vuelve a iniciar. Con una IP nueva hay que regenerar el certificado (paso 5) y ejecutar `docker compose restart proxy`.
 > - MySQL solo lee `MYSQL_ROOT_PASSWORD` y `DB_PASSWORD` al crear su volumen. Si se cambian después, hay que recrearlo con `docker compose down -v`, lo que **borra los datos**.
+
+---
+
+## 🛡️ Análisis de seguridad con ZAP (OWASP Top 10)
+
+Se analizó la aplicación desplegada en AWS con **ZAP 2.17** y la política *Default Policy*:
+
+- **Frontend:** spider tradicional, exploración manual con sesión iniciada y escaneo activo.
+- **Backend (API):** rutas registradas con `curl` a través del proxy de ZAP y escaneo activo
+  autenticado (regla de Reemplazo que agrega `Authorization: Bearer <token>` con el usuario `user`).
+
+| Riesgo | Antes | Después |
+|---|---|---|
+| Alto | 0 | 0 |
+| Medio | 0 | 0 |
+| Bajo | 1 | 0 |
+| Informativo | 4 | 4 |
+
+**Vulnerabilidad corregida:** *Strict-Transport-Security Múltiples Cabeceras* (OWASP **A05**, configuración
+incorrecta). Apache y Spring Security enviaban la cabecera HSTS al mismo tiempo. Se eliminó la directiva de
+`proxy/gamerzone.conf` y se dejó solo la de Spring Security (imagen `gamerzone-proxy:1.2`).
+
+**Alertas informativas:** el aviso de *XSS potencial* en `/eventos` y `/registro` es un falso positivo
+(Thymeleaf escapa los valores y la CSP bloquea scripts en línea); las demás solo indican que ZAP
+identificó el login, la cookie de sesión y probó distintos *User-Agent*.
+
+Los reportes completos están en `Informes ZAP/ZAP-GamerZone_antes.html` y `Informes ZAP/ZAP-GamerZone_despues.html`.
 
 ---
 
