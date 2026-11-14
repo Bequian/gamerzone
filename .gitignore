@@ -35,3 +35,7 @@ build/
 ### Secretos ###
 .env
 certs/
+
+### SonarQube ###
+.sonar/
+sonar-*.json

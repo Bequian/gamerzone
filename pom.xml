@@ -32,6 +32,10 @@
 
 		<jjwt.version>0.12.6</jjwt.version>
 
+		<sonar.projectKey>key_gamerzone_2026</sonar.projectKey>
+		<sonar.projectName>GamerZone</sonar.projectName>
+		<sonar.sources>src/main/java,src/main/resources/templates,src/main/resources/static</sonar.sources>
+
 	</properties>
 	<dependencies>
 		
@@ -125,6 +129,13 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>5.8.0.7211</version>
+			</plugin>
+
 		</plugins>
 	</build>
 

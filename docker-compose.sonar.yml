@@ -1,0 +1,40 @@
+# SonarQube para análisis de código. Solo para uso local, NO se despliega en la VM.
+services:
+  sonarqube:
+    image: sonarqube:community
+    container_name: gz-sonarqube
+    depends_on:
+      - sonar-db
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://sonar-db:5432/sonar
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: ${SONAR_DB_PASSWORD:?Falta SONAR_DB_PASSWORD en .env}
+    ports:
+      - "127.0.0.1:9000:9000"    # solo accesible desde tu PC
+    volumes:
+      - sonar-data:/opt/sonarqube/data
+      - sonar-extensions:/opt/sonarqube/extensions
+      - sonar-logs:/opt/sonarqube/logs
+    networks:
+      - sonar
+
+  sonar-db:
+    image: postgres:17
+    container_name: gz-sonar-db
+    environment:
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: ${SONAR_DB_PASSWORD:?Falta SONAR_DB_PASSWORD en .env}
+      POSTGRES_DB: sonar
+    volumes:
+      - sonar-db-data:/var/lib/postgresql/data
+    networks:
+      - sonar
+
+networks:
+  sonar:
+
+volumes:
+  sonar-data:
+  sonar-extensions:
+  sonar-logs:
+  sonar-db-data:
