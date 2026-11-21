@@ -29,6 +29,9 @@
 	<properties>
 
 		<java.version>21</java.version>
+		<!-- Dependency-Check: Connector/J 9.7.0 tiene CVE-2026-60586 y otras 3 (Oracle CPU julio 2026).
+		     Se fija la versión corregida en vez de la que trae Spring Boot por defecto. -->
+		<mysql.version>26.10.0</mysql.version>
 
 		<jjwt.version>0.12.6</jjwt.version>
 
@@ -134,6 +137,29 @@
 				<groupId>org.sonarsource.scanner.maven</groupId>
 				<artifactId>sonar-maven-plugin</artifactId>
 				<version>5.8.0.7211</version>
+			</plugin>
+
+			<!-- JaCoCo: mide la cobertura de los tests. Genera target/site/jacoco/jacoco.xml,
+			     que SonarQube lee automáticamente para mostrar el porcentaje de cobertura. -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.15</version>
+				<executions>
+					<execution>
+						<id>preparar-agente</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>reporte-cobertura</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
 			<!-- OWASP Dependency-Check (SCA): busca vulnerabilidades conocidas (CVE) en las librerías.

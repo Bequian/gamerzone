@@ -55,8 +55,27 @@ public class MultimediaService {
             + "(?:youtube\\.com/(?:watch\\?(?:[^#\\s]*&)?v=|embed/|shorts/|live/)|youtu\\.be/)"
             + "([A-Za-z0-9_-]{11})(?:[?&#/][^\\s]*)?$");
 
-    // Imagen ya validada, lista para guardar o descargar
+    // Imagen ya validada, lista para guardar o descargar.
+    // Al tener un arreglo, equals/hashCode/toString deben comparar su contenido (regla java:S6218 de SonarQube)
     public record Imagen(String tipoContenido, byte[] datos) {
+
+        @Override
+        public boolean equals(Object otro) {
+            return otro instanceof Imagen i
+                    && tipoContenido.equals(i.tipoContenido)
+                    && java.util.Arrays.equals(datos, i.datos);
+        }
+
+        @Override
+        public int hashCode() {
+            return 31 * tipoContenido.hashCode() + java.util.Arrays.hashCode(datos);
+        }
+
+        @Override
+        public String toString() {
+            // No se imprime el contenido de la imagen, solo su tipo y tamaño
+            return "Imagen[tipoContenido=" + tipoContenido + ", bytes=" + datos.length + "]";
+        }
     }
 
     private final FotoEventoRepository fotoRepository;
