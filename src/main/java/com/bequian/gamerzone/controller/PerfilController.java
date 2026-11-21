@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bequian.gamerzone.model.Catalogo;
 import com.bequian.gamerzone.model.PerfilForm;
+import com.bequian.gamerzone.service.CompartirService;
 import com.bequian.gamerzone.service.UsuarioService;
 
 import jakarta.validation.Valid;
@@ -21,9 +22,11 @@ import jakarta.validation.Valid;
 public class PerfilController {
 
     private final UsuarioService usuarioService;
+    private final CompartirService compartirService;
 
-    public PerfilController(UsuarioService usuarioService) {
+    public PerfilController(UsuarioService usuarioService, CompartirService compartirService) {
         this.usuarioService = usuarioService;
+        this.compartirService = compartirService;
     }
 
     // Muestra el formulario de edición de perfil con los datos actuales del usuario
@@ -67,5 +70,6 @@ public class PerfilController {
         model.addAttribute("nombre", usuarioService.nombreDe(username));
         model.addAttribute("avatares", Catalogo.AVATARES);
         model.addAttribute("juegosDisponibles", Catalogo.JUEGOS);
+        model.addAttribute("compartidos", compartirService.compartidosPor(username));
     }
 }

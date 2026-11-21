@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="|GamerZone - ${evento.titulo}|">GamerZone - Evento</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <script th:src="@{/js/detalle.js}" defer></script>
 </head>
 <body>
 
@@ -18,6 +20,8 @@
                 <div class="detalle-etiquetas">
                     <span class="card-etiqueta" th:text="${evento.categoria}">Categoría</span>
                     <span class="badge" th:if="${evento.destacado}">⭐ Destacado</span>
+                    <span class="badge" th:if="${comentarios.promedio != null}"
+                          th:text="|★ ${#numbers.formatDecimal(comentarios.promedio, 1, 1)} (${comentarios.total})|">★ 4.5 (2)</span>
                 </div>
                 <h1 th:text="${evento.titulo}">Título del evento</h1>
                 <p class="texto-suave" th:text="${evento.descripcion}">Descripción</p>
@@ -52,25 +56,206 @@
                     </ul>
                 </section>
 
-                <!-- ===== Servicios disponibles ===== -->
-                <aside class="panel">
-                    <h2>Servicios disponibles</h2>
-                    <ul class="servicios">
-                        <li th:classappend="${evento.servicios.estacionamiento} ? 'si' : 'no'">
-                            <span th:text="${evento.servicios.estacionamiento} ? '✓' : '✗'">✓</span> Estacionamiento
-                        </li>
-                        <li th:classappend="${evento.servicios.locomocion} ? 'si' : 'no'">
-                            <span th:text="${evento.servicios.locomocion} ? '✓' : '✗'">✓</span> Locomoción colectiva
-                        </li>
-                        <li th:classappend="${evento.servicios.comida} ? 'si' : 'no'">
-                            <span th:text="${evento.servicios.comida} ? '✓' : '✗'">✓</span> Servicio de comidas
-                        </li>
-                        <li th:classappend="${evento.servicios.alojamiento} ? 'si' : 'no'">
-                            <span th:text="${evento.servicios.alojamiento} ? '✓' : '✗'">✓</span> Alojamiento
-                        </li>
-                    </ul>
-                </aside>
+                <div class="columna-lateral">
+                    <!-- ===== Servicios disponibles ===== -->
+                    <aside class="panel">
+                        <h2>Servicios disponibles</h2>
+                        <ul class="servicios">
+                            <li th:classappend="${evento.servicios.estacionamiento} ? 'si' : 'no'">
+                                <span th:text="${evento.servicios.estacionamiento} ? '✓' : '✗'">✓</span> Estacionamiento
+                            </li>
+                            <li th:classappend="${evento.servicios.locomocion} ? 'si' : 'no'">
+                                <span th:text="${evento.servicios.locomocion} ? '✓' : '✗'">✓</span> Locomoción colectiva
+                            </li>
+                            <li th:classappend="${evento.servicios.comida} ? 'si' : 'no'">
+                                <span th:text="${evento.servicios.comida} ? '✓' : '✗'">✓</span> Servicio de comidas
+                            </li>
+                            <li th:classappend="${evento.servicios.alojamiento} ? 'si' : 'no'">
+                                <span th:text="${evento.servicios.alojamiento} ? '✓' : '✗'">✓</span> Alojamiento
+                            </li>
+                        </ul>
+                    </aside>
+
+                    <!-- ===== Compartir ===== -->
+                    <aside class="panel" id="compartir">
+                        <h2>Compartir</h2>
+                        <div th:if="${mensajeCompartir}" class="alerta alerta-exito" role="status"
+                             th:text="${mensajeCompartir}">Mensaje</div>
+
+                        <p class="texto-suave compartir-contador"
+                           th:text="${compartir.totalCompartidos == 1} ? '1 gamer compartió este evento' : |${compartir.totalCompartidos} gamers compartieron este evento|">
+                            0 gamers compartieron este evento
+                        </p>
+
+                        <!-- Compartir dentro de GamerZone: queda en el perfil del usuario -->
+                        <form th:unless="${compartir.compartidoPorMi}" method="post"
+                              th:action="@{/eventos/{id}/compartir(id=${evento.id})}">
+                            <button type="submit" class="btn btn-primario btn-bloque">Compartir en GamerZone</button>
+                        </form>
+                        <form th:if="${compartir.compartidoPorMi}" method="post"
+                              th:action="@{/eventos/{id}/compartir/quitar(id=${evento.id})}">
+                            <button type="submit" class="btn btn-secundario btn-bloque">✓ Compartido · Quitar de mi perfil</button>
+                        </form>
+
+                        <!-- Redes sociales: enlaces simples, sin scripts de terceros -->
+                        <div class="compartir-redes">
+                            <a class="btn btn-secundario" th:href="${compartir.whatsapp}"
+                               target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                            <a class="btn btn-secundario" th:href="${compartir.x}"
+                               target="_blank" rel="noopener noreferrer">X</a>
+                            <a class="btn btn-secundario" th:href="${compartir.facebook}"
+                               target="_blank" rel="noopener noreferrer">Facebook</a>
+                        </div>
+
+                        <div class="campo compartir-enlace">
+                            <label for="enlace-evento">Enlace del evento</label>
+                            <input type="text" id="enlace-evento" th:value="${compartir.url}" readonly>
+                            <button type="button" class="btn btn-secundario" id="btn-copiar">Copiar enlace</button>
+                            <span class="campo-ayuda" id="copiar-estado" role="status"></span>
+                        </div>
+                    </aside>
+                </div>
             </div>
+
+            <!-- ===== Fotos y videos ===== -->
+            <section class="panel seccion-detalle" id="multimedia">
+                <h2>Fotos y videos</h2>
+
+                <div th:if="${mensajeMultimedia}" class="alerta alerta-exito" role="status"
+                     th:text="${mensajeMultimedia}">Mensaje</div>
+                <div th:if="${errorMultimedia}" class="alerta alerta-error" role="alert"
+                     th:text="${errorMultimedia}">Error</div>
+
+                <p class="texto-suave" th:if="${#lists.isEmpty(fotos) and #lists.isEmpty(videos)}">
+                    Este evento aún no tiene fotos ni videos.
+                </p>
+
+                <div class="galeria" th:unless="${#lists.isEmpty(fotos)}">
+                    <figure class="galeria-item" th:each="fotoId : ${fotos}">
+                        <a th:href="@{/eventos/{id}/fotos/{f}(id=${evento.id},f=${fotoId})}" target="_blank" rel="noopener">
+                            <img th:src="@{/eventos/{id}/fotos/{f}(id=${evento.id},f=${fotoId})}"
+                                 th:alt="|Foto de ${evento.titulo}|" loading="lazy" alt="Foto del evento">
+                        </a>
+                        <form sec:authorize="hasAnyRole('ORGANIZADOR', 'ADMIN')" method="post"
+                              th:action="@{/eventos/{id}/fotos/{f}/eliminar(id=${evento.id},f=${fotoId})}">
+                            <button type="submit" class="btn-texto-peligro">Eliminar foto</button>
+                        </form>
+                    </figure>
+                </div>
+
+                <div class="videos" th:unless="${#lists.isEmpty(videos)}">
+                    <figure class="video-item" th:each="video : ${videos}">
+                        <div class="video-marco">
+                            <!-- Solo se incrusta un ID validado de YouTube, con sandbox y sin cookies de seguimiento -->
+                            <iframe th:src="${video.embedUrl}" th:title="${video.titulo}" title="Video del evento"
+                                    loading="lazy" allowfullscreen
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"
+                                    allow="encrypted-media; picture-in-picture; fullscreen"></iframe>
+                        </div>
+                        <figcaption th:text="${video.titulo}">Título del video</figcaption>
+                        <form sec:authorize="hasAnyRole('ORGANIZADOR', 'ADMIN')" method="post"
+                              th:action="@{/eventos/{id}/videos/{v}/eliminar(id=${evento.id},v=${video.id})}">
+                            <button type="submit" class="btn-texto-peligro">Eliminar video</button>
+                        </form>
+                    </figure>
+                </div>
+
+                <!-- Gestión de multimedia: solo organizadores y administradores -->
+                <div class="multimedia-gestion" sec:authorize="hasAnyRole('ORGANIZADOR', 'ADMIN')">
+                    <form class="subida" method="post" enctype="multipart/form-data"
+                          th:action="@{/eventos/{id}/fotos(id=${evento.id})}">
+                        <h3>Agregar foto</h3>
+                        <div class="campo">
+                            <label for="archivo">Imagen <span class="campo-ayuda">JPG o PNG, máximo 2 MB</span></label>
+                            <input type="file" id="archivo" name="archivo" accept="image/jpeg,image/png" required
+                                   data-max-bytes="2097152">
+                            <span class="campo-error" id="archivo-error" role="alert"></span>
+                        </div>
+                        <p class="campo-ayuda" th:text="|Máximo ${maxFotos} fotos por evento.|">Máximo 12 fotos por evento.</p>
+                        <button type="submit" class="btn btn-primario">Subir foto</button>
+                    </form>
+
+                    <form class="subida" method="post" th:action="@{/eventos/{id}/videos(id=${evento.id})}">
+                        <h3>Agregar video de YouTube</h3>
+                        <div class="campo">
+                            <label for="url-video">Enlace de YouTube</label>
+                            <input type="url" id="url-video" name="url" maxlength="300" required
+                                   placeholder="https://www.youtube.com/watch?v=...">
+                        </div>
+                        <div class="campo">
+                            <label for="titulo-video">Título <span class="campo-ayuda">(opcional)</span></label>
+                            <input type="text" id="titulo-video" name="titulo" maxlength="100">
+                        </div>
+                        <p class="campo-ayuda" th:text="|Máximo ${maxVideos} videos por evento.|">Máximo 6 videos por evento.</p>
+                        <button type="submit" class="btn btn-primario">Agregar video</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- ===== Comentarios y valoraciones ===== -->
+            <section class="panel seccion-detalle" id="comentarios">
+                <h2>Comentarios y valoraciones</h2>
+
+                <div class="valoracion-resumen" th:if="${comentarios.promedio != null}">
+                    <span class="valoracion-numero"
+                          th:text="${#numbers.formatDecimal(comentarios.promedio, 1, 1)}">4.5</span>
+                    <div>
+                        <span class="estrellas" aria-hidden="true"
+                              th:text="${#strings.repeat('★', estrellasPromedio)} + ${#strings.repeat('☆', 5 - estrellasPromedio)}">★★★★☆</span>
+                        <p class="texto-suave"
+                           th:text="${comentarios.total == 1} ? 'Basado en 1 valoración' : |Basado en ${comentarios.total} valoraciones|">
+                            Basado en 2 valoraciones</p>
+                    </div>
+                </div>
+
+                <div th:if="${mensajeComentario}" class="alerta alerta-exito" role="status"
+                     th:text="${mensajeComentario}">Mensaje</div>
+                <div th:if="${errorComentario}" class="alerta alerta-error" role="alert"
+                     th:text="${errorComentario}">Error</div>
+
+                <!-- th:action agrega automáticamente el token CSRF oculto -->
+                <form class="comentario-form" method="post" th:action="@{/eventos/{id}/comentarios(id=${evento.id})}">
+                    <h3 th:text="${miComentario != null} ? 'Edita tu comentario' : 'Deja tu comentario'">Deja tu comentario</h3>
+                    <div class="campo">
+                        <label for="valoracion">Valoración</label>
+                        <select id="valoracion" name="valoracion" required>
+                            <option value="" th:selected="${miComentario == null}">Selecciona…</option>
+                            <option value="5" th:selected="${miComentario != null and miComentario.valoracion == 5}">★★★★★ Excelente</option>
+                            <option value="4" th:selected="${miComentario != null and miComentario.valoracion == 4}">★★★★☆ Muy bueno</option>
+                            <option value="3" th:selected="${miComentario != null and miComentario.valoracion == 3}">★★★☆☆ Bueno</option>
+                            <option value="2" th:selected="${miComentario != null and miComentario.valoracion == 2}">★★☆☆☆ Regular</option>
+                            <option value="1" th:selected="${miComentario != null and miComentario.valoracion == 1}">★☆☆☆☆ Malo</option>
+                        </select>
+                    </div>
+                    <div class="campo">
+                        <label for="texto">Comentario <span class="campo-ayuda">(máximo 500 caracteres)</span></label>
+                        <textarea id="texto" name="texto" rows="4" maxlength="500" required
+                                  th:text="${miComentario != null} ? ${miComentario.texto} : ''"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primario"
+                            th:text="${miComentario != null} ? 'Actualizar comentario' : 'Publicar comentario'">Publicar comentario</button>
+                </form>
+
+                <p class="texto-suave" th:if="${comentarios.total == 0}">Aún no hay comentarios. ¡Sé el primero en opinar!</p>
+
+                <ul class="comentarios" th:unless="${comentarios.total == 0}">
+                    <li class="comentario" th:each="c : ${comentarios.comentarios}">
+                        <div class="comentario-cabecera">
+                            <strong th:text="${c.autor}">Autor</strong>
+                            <span class="estrellas" th:attr="aria-label=|${c.valoracion} de 5 estrellas|"
+                                  th:text="${#strings.repeat('★', c.valoracion)} + ${#strings.repeat('☆', 5 - c.valoracion)}">★★★★☆</span>
+                            <span class="comentario-fecha" th:text="${#temporals.format(c.fecha, 'dd/MM/yyyy HH:mm')}">01/01/2026</span>
+                        </div>
+                        <!-- th:text escapa el contenido: un comentario con <script> se muestra como texto (sin XSS) -->
+                        <p th:text="${c.texto}">Texto del comentario</p>
+                        <form th:if="${c.propio or #authorization.expression('hasRole(''ADMIN'')')}" method="post"
+                              th:action="@{/eventos/{id}/comentarios/{c}/eliminar(id=${evento.id},c=${c.id})}">
+                            <button type="submit" class="btn-texto-peligro">Eliminar</button>
+                        </form>
+                    </li>
+                </ul>
+            </section>
         </div>
     </main>
 

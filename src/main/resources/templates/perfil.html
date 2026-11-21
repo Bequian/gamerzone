@@ -34,6 +34,14 @@
                         <span class="badge" th:each="juego : ${perfil.juegos}" th:text="${juego}">Juego</span>
                         <span class="texto-suave" th:if="${#lists.isEmpty(perfil.juegos)}">Aún no eliges juegos.</span>
                     </div>
+
+                    <h3>Eventos que compartiste</h3>
+                    <ul class="lista-compartidos" th:unless="${#lists.isEmpty(compartidos)}">
+                        <li th:each="ev : ${compartidos}">
+                            <a th:href="@{/eventos/{id}(id=${ev.id})}" th:text="${ev.titulo}">Evento</a>
+                        </li>
+                    </ul>
+                    <span class="texto-suave" th:if="${#lists.isEmpty(compartidos)}">Aún no compartes eventos.</span>
                 </aside>
 
                 <!-- ===== Formulario de edición ===== -->

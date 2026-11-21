@@ -12,14 +12,28 @@ import com.bequian.gamerzone.repository.EventoRepository;
 
 import org.springframework.transaction.annotation.Transactional;
 import com.bequian.gamerzone.api.dto.EventoRequest;
+import com.bequian.gamerzone.repository.ComentarioRepository;
+import com.bequian.gamerzone.repository.CompartidoRepository;
+import com.bequian.gamerzone.repository.FotoEventoRepository;
+import com.bequian.gamerzone.repository.VideoEventoRepository;
 
 @Service
 public class EventoService {
 
     private final EventoRepository eventoRepository;
+    private final ComentarioRepository comentarioRepository;
+    private final FotoEventoRepository fotoRepository;
+    private final VideoEventoRepository videoRepository;
+    private final CompartidoRepository compartidoRepository;
 
-    public EventoService(EventoRepository eventoRepository) {
+    public EventoService(EventoRepository eventoRepository, ComentarioRepository comentarioRepository,
+                         FotoEventoRepository fotoRepository, VideoEventoRepository videoRepository,
+                         CompartidoRepository compartidoRepository) {
         this.eventoRepository = eventoRepository;
+        this.comentarioRepository = comentarioRepository;
+        this.fotoRepository = fotoRepository;
+        this.videoRepository = videoRepository;
+        this.compartidoRepository = compartidoRepository;
     }
 
     public List<Evento> listarTodos() {
@@ -86,6 +100,11 @@ public class EventoService {
         if (!eventoRepository.existsById(id)) {
             return false;
         }
+        // Primero los datos asociados al evento (claves foráneas), luego el evento
+        comentarioRepository.deleteByEvento(id);
+        fotoRepository.deleteByEvento(id);
+        videoRepository.deleteByEvento(id);
+        compartidoRepository.deleteByEvento(id);
         eventoRepository.deleteById(id);
         return true;
     }

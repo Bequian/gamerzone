@@ -54,6 +54,9 @@ Navegador ─HTTPS─►│ proxy (Apache, 443) ──red "frontend"──► ap
 | **Perfil**: gamertag, avatar, juegos de interés y opciones de notificación | `/perfil` | Privada |
 | **Búsqueda de eventos** por categoría, ubicación y rango de fechas | `/eventos` | Pública |
 | **Detalle de evento**: descripción, dirección, fecha y hora, organizadores, servicios (estacionamiento, locomoción, comidas, alojamiento) y expositores | `/eventos/{id}` | Privada |
+| **Comentar y valorar** eventos (1 a 5 estrellas, un comentario por usuario y evento) | `/eventos/{id}#comentarios` | Privada |
+| **Fotos y videos** del evento (subir fotos JPG/PNG y agregar videos de YouTube) | `/eventos/{id}#multimedia` | Ver: privada · Agregar/eliminar: **ORGANIZADOR** o **ADMIN** |
+| **Compartir** eventos en GamerZone (queda en el perfil) y en WhatsApp, X y Facebook | `/eventos/{id}#compartir` | Privada |
 | Panel de administración | `/admin` | Solo rol **ADMIN** |
 
 Además:
@@ -81,6 +84,16 @@ Authorization: Bearer <token>
 | `POST` | `/api/eventos` | Rol **ORGANIZADOR** o **ADMIN** | Crea un evento |
 | `PUT` | `/api/eventos/{id}` | Rol **ORGANIZADOR** o **ADMIN** | Edita un evento |
 | `DELETE` | `/api/eventos/{id}` | Rol **ORGANIZADOR** o **ADMIN** | Elimina un evento |
+| `GET` | `/api/eventos/{id}/comentarios` | Privada | Comentarios y valoración promedio |
+| `POST` | `/api/eventos/{id}/comentarios` | Privada | Comenta y valora (`{"texto": "...", "valoracion": 1-5}`); si ya comentó, actualiza |
+| `DELETE` | `/api/eventos/{id}/comentarios/{comentarioId}` | Autor del comentario o **ADMIN** | Elimina un comentario |
+| `GET` | `/api/eventos/{id}/multimedia` | Privada | Fotos y videos del evento |
+| `GET` | `/api/eventos/{id}/fotos/{fotoId}` | Privada | Descarga una foto |
+| `POST` | `/api/eventos/{id}/fotos` | Rol **ORGANIZADOR** o **ADMIN** | Sube una foto (`multipart/form-data`, campo `archivo`, JPG/PNG máx. 2 MB) |
+| `POST` | `/api/eventos/{id}/videos` | Rol **ORGANIZADOR** o **ADMIN** | Agrega un video (`{"url": "https://youtu.be/...", "titulo": "..."}`) |
+| `DELETE` | `/api/eventos/{id}/fotos/{fotoId}` y `/videos/{videoId}` | Rol **ORGANIZADOR** o **ADMIN** | Elimina una foto o un video |
+| `GET` | `/api/eventos/{id}/compartir` | Privada | Enlaces para compartir en WhatsApp, X y Facebook |
+| `POST` / `DELETE` | `/api/eventos/{id}/compartir` | Privada | Comparte (o deja de compartir) el evento en GamerZone |
 
 ### Parámetros
 
@@ -182,6 +195,12 @@ Respuesta `200`:
 | Errores sin detalles internos | No se muestran stack traces; la API responde errores en un JSON controlado. |
 | Versión del servidor oculta | Apache no revela su versión (`ServerTokens Prod`). |
 | Contenedor sin root | La imagen de la aplicación se ejecuta con un usuario sin privilegios. |
+| **Subida segura de fotos** | Máximo 2 MB y 6000×6000 px; el tipo se detecta por la firma del archivo (no por la extensión); la imagen se decodifica y se vuelve a codificar (descarta metadatos como la ubicación GPS y contenido oculto); se guarda en la BD y nunca se usa el nombre original. |
+| Videos solo de YouTube | Lista blanca de enlaces de YouTube; solo se guarda el ID de 11 caracteres y se incrusta desde `youtube-nocookie.com` (permitido en la CSP con `frame-src`). |
+| Control de acceso por objeto | Un comentario solo lo puede eliminar su autor o un `ADMIN`; un usuario solo modifica sus propios "compartidos". |
+| Sin datos personales expuestos | Los comentarios muestran el nombre del autor, nunca su correo. |
+| Compartir sin rastreo | Enlaces simples a WhatsApp, X y Facebook (`rel="noopener noreferrer"`), sin scripts ni widgets de terceros. |
+| **Análisis de dependencias (SCA)** | OWASP Dependency-Check revisa las librerías contra la base de datos de vulnerabilidades NVD. |
 
 ---
 
@@ -403,6 +422,21 @@ incorrecta). Apache y Spring Security enviaban la cabecera HSTS al mismo tiempo.
 identificó el login, la cookie de sesión y probó distintos *User-Agent*.
 
 Los reportes completos están en `Informes ZAP/ZAP-GamerZone_antes.html` y `Informes ZAP/ZAP-GamerZone_despues.html`.
+
+---
+
+## 📦 Análisis de dependencias con OWASP Dependency-Check
+
+Se ejecuta manualmente (no forma parte del build). Requiere una API key gratuita de NVD
+(https://nvd.nist.gov/developers/request-an-api-key), que se entrega como variable de entorno:
+
+```powershell
+$env:NVD_API_KEY = "tu-api-key"
+.\mvnw dependency-check:check
+```
+
+La primera ejecución descarga la base de datos de vulnerabilidades (puede tardar varios minutos).
+El reporte queda en `target/dependency-check-report.html`.
 
 ---
 

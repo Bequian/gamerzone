@@ -41,6 +41,12 @@ public class WebSecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/eventos").hasAnyRole("ORGANIZADOR", "ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/api/eventos/*").hasAnyRole("ORGANIZADOR", "ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/api/eventos/*").hasAnyRole("ORGANIZADOR", "ADMIN")
+                // Fotos y videos: agregar o eliminar solo ORGANIZADOR o ADMIN
+                .requestMatchers(HttpMethod.POST, "/api/eventos/*/fotos", "/api/eventos/*/videos")
+                    .hasAnyRole("ORGANIZADOR", "ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/api/eventos/*/fotos/*", "/api/eventos/*/videos/*")
+                    .hasAnyRole("ORGANIZADOR", "ADMIN")
+                // Comentarios, valoraciones y compartir: cualquier usuario con token (regla anyRequest)
                 // Cualquier otra API (por ejemplo el detalle de un evento) requiere un token válido
                 .anyRequest().authenticated()
             )
@@ -81,6 +87,10 @@ public class WebSecurityConfig {
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
                 // Zona administración: rol ADMIN
                 .requestMatchers("/admin/**").hasRole("ADMIN")
+                // Agregar o eliminar fotos y videos de un evento: solo ORGANIZADOR o ADMIN
+                .requestMatchers(HttpMethod.POST, "/eventos/*/fotos", "/eventos/*/videos",
+                                 "/eventos/*/fotos/*/eliminar", "/eventos/*/videos/*/eliminar")
+                    .hasAnyRole("ORGANIZADOR", "ADMIN")
                 // Todo lo demás requiere iniciar sesión
                 .anyRequest().authenticated()
             )
@@ -103,6 +113,8 @@ public class WebSecurityConfig {
                     "img-src 'self' data:; " +
                     "style-src 'self'; " +
                     "script-src 'self'; " +
+                    // Solo se pueden incrustar videos desde el modo privado de YouTube
+                    "frame-src https://www.youtube-nocookie.com; " +
                     "frame-ancestors 'none'; " +
                     "form-action 'self'"))
                 .referrerPolicy(ref -> ref.policy(ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN))

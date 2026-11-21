@@ -136,6 +136,25 @@
 				<version>5.8.0.7211</version>
 			</plugin>
 
+			<!-- OWASP Dependency-Check (SCA): busca vulnerabilidades conocidas (CVE) en las librerías.
+			     Se ejecuta manualmente con: .\mvnw dependency-check:check
+			     No se asocia a una fase del build, para no hacer lenta la compilación ni la imagen Docker. -->
+			<plugin>
+				<groupId>org.owasp</groupId>
+				<artifactId>dependency-check-maven</artifactId>
+				<version>13.0.0</version>
+				<configuration>
+					<!-- La API key de NVD se lee de una variable de entorno: nunca queda en el código -->
+					<nvdApiKeyEnvironmentVariable>NVD_API_KEY</nvdApiKeyEnvironmentVariable>
+					<formats>
+						<format>HTML</format>
+						<format>JSON</format>
+					</formats>
+					<!-- Sonatype OSS Index requiere credenciales propias; se usa solo la base de datos de NVD -->
+					<ossindexAnalyzerEnabled>false</ossindexAnalyzerEnabled>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 
