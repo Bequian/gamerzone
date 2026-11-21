@@ -25,7 +25,7 @@ services:
 
   app:
     build: .
-    image: bequian/gamerzone:2.1
+    image: bequian/gamerzone:2.2
     restart: unless-stopped
     depends_on:
       db:
