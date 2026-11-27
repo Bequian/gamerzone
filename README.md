@@ -351,7 +351,7 @@ Los tests usan H2 en memoria, así que **no necesitan Docker**. Verifican, entre
 
 | Imagen | Contenido |
 |---|---|
-| `bequian/gamerzone:2.2` | Aplicación Spring Boot (compilada en dos etapas, se ejecuta sin root) |
+| `bequian/gamerzone:2.3` | Aplicación Spring Boot (compilada en dos etapas, se ejecuta sin root) |
 | `bequian/gamerzone-db:1.0` | MySQL 8.4 con configuración UTF-8 |
 | `bequian/gamerzone-proxy:1.2` | Apache con HTTPS y proxy inverso (sin HSTS duplicado) |
 
