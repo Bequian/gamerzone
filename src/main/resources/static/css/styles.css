@@ -546,15 +546,18 @@ input:focus-visible {
     transition: border-color 0.2s, background 0.2s;
 }
 .chip span:hover { border-color: var(--acento); }
-.chip input:checked + span {
+/* "~" y no "+": th:field agrega un input oculto (_campo) entre el checkbox y el span */
+.chip input:checked ~ span {
     border-color: var(--primario);
-    background: rgba(124, 58, 237, 0.25);
+    background: var(--primario);
     color: #fff;
+    font-weight: 600;
 }
+.chip input:checked ~ span::before { content: "✓ "; }
 
 /* Foco visible en las opciones personalizadas */
 .avatar-opcion input:focus-visible + span,
-.chip input:focus-visible + span {
+.chip input:focus-visible ~ span {
     outline: 2px solid var(--acento);
     outline-offset: 2px;
 }
