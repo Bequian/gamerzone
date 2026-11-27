@@ -669,3 +669,9 @@ input:focus-visible {
 @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* Formulario dentro de una celda de tabla (botón eliminar del panel de usuarios) */
+.form-en-linea {
+    display: inline;
+    margin-left: 0.5rem;
+}

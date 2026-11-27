@@ -30,6 +30,11 @@
                     <span class="stat-label">Eventos publicados</span>
                 </div>
                 <div class="stat">
+                    <span class="stat-valor" th:text="${totalUsuarios}">0</span>
+                    <span class="stat-label">Usuarios registrados</span>
+                    <a class="card-link" th:href="@{/admin/usuarios}">Gestionar usuarios →</a>
+                </div>
+                <div class="stat">
                     <span class="stat-valor" sec:authentication="name">admin</span>
                     <span class="stat-label">Sesión actual</span>
                 </div>

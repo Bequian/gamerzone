@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${usuarioId == null} ? 'GamerZone - Nuevo usuario' : 'GamerZone - Editar usuario'">GamerZone - Usuario</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+    <header th:replace="~{fragments/comunes :: navbar}"></header>
+
+    <main class="seccion">
+        <div class="contenedor">
+
+            <div class="admin-encabezado">
+                <span class="card-etiqueta">Zona restringida</span>
+                <h1 th:text="${usuarioId == null} ? 'Nuevo usuario' : 'Editar usuario'">Usuario</h1>
+            </div>
+
+            <div class="alerta alerta-error" role="alert" th:if="${error}" th:text="${error}">Error</div>
+
+            <div class="panel">
+                <form method="post" th:object="${usuario}" novalidate
+                      th:action="${usuarioId == null} ? @{/admin/usuarios/nuevo} : @{/admin/usuarios/{id}/editar(id=${usuarioId})}">
+
+                    <div class="campo">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" th:field="*{nombre}" maxlength="60" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="correo">Correo electrónico (usuario para iniciar sesión)</label>
+                        <input type="email" id="correo" th:field="*{correo}" maxlength="100"
+                               th:readonly="${usuarioId != null}" required>
+                        <span class="campo-ayuda" th:if="${usuarioId != null}">El correo no se puede cambiar.</span>
+                    </div>
+
+                    <div class="campo">
+                        <label for="password" th:text="${usuarioId == null} ? 'Contraseña' : 'Nueva contraseña (opcional)'">Contraseña</label>
+                        <input type="password" id="password" th:field="*{password}" maxlength="72"
+                               autocomplete="new-password">
+                        <span class="campo-ayuda">Mínimo 8 caracteres, con al menos una letra y un número.
+                            <span th:if="${usuarioId != null}">Déjala vacía para no cambiarla.</span></span>
+                    </div>
+
+                    <fieldset class="grupo">
+                        <legend>Roles</legend>
+                        <div class="chips">
+                            <label class="chip" th:each="rol : ${rolesDisponibles}">
+                                <input type="checkbox" th:field="*{roles}" th:value="${rol}">
+                                <span th:text="${rol}">USER</span>
+                            </label>
+                        </div>
+                        <span class="campo-ayuda">USER se asigna siempre. ADMIN da acceso a este panel.</span>
+                    </fieldset>
+
+                    <button type="submit" class="btn btn-primario">Guardar</button>
+                    <a class="btn btn-secundario" th:href="@{/admin/usuarios}">Cancelar</a>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/comunes :: footer}"></footer>
+
+</body>
+</html>

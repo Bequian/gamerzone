@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamerZone - Gestión de usuarios</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+    <header th:replace="~{fragments/comunes :: navbar}"></header>
+
+    <main class="seccion">
+        <div class="contenedor">
+
+            <div class="admin-encabezado">
+                <span class="card-etiqueta">Zona restringida</span>
+                <h1>Gestión de usuarios</h1>
+                <p class="texto-suave">
+                    Crea, edita o elimina usuarios del sitio y asigna quién es administrador.
+                    Hay <strong th:text="${totalAdmins}">1</strong> administrador(es); siempre debe quedar al menos uno.
+                </p>
+                <a class="btn btn-primario" th:href="@{/admin/usuarios/nuevo}">+ Nuevo usuario</a>
+                <a class="btn btn-secundario" th:href="@{/admin}">← Volver al panel</a>
+            </div>
+
+            <div class="alerta alerta-exito" role="status" th:if="${mensaje}" th:text="${mensaje}">Listo</div>
+            <div class="alerta alerta-error" role="alert" th:if="${error}" th:text="${error}">Error</div>
+
+            <div class="tabla-contenedor">
+                <table class="tabla">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Usuario / correo</th>
+                            <th scope="col">Roles</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="u : ${usuarios}">
+                            <td th:text="${u.nombre}">Nombre</td>
+                            <td th:text="${u.username}">correo@ejemplo.cl</td>
+                            <td>
+                                <span class="badge" th:each="rol : ${u.roles}"
+                                      th:text="${rol}">USER</span>
+                            </td>
+                            <td>
+                                <a class="btn btn-secundario" th:href="@{/admin/usuarios/{id}/editar(id=${u.id})}">Editar</a>
+                                <!-- No se ofrece eliminar la propia cuenta (el servidor también lo impide) -->
+                                <form method="post" th:action="@{/admin/usuarios/{id}/eliminar(id=${u.id})}"
+                                      th:unless="${#authentication.name == u.username}" class="form-en-linea">
+                                    <button type="submit" class="btn-texto-peligro">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(usuarios)}">
+                            <td colspan="4" class="texto-suave">No hay usuarios registrados.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/comunes :: footer}"></footer>
+
+</body>
+</html>

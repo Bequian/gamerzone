@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bequian.gamerzone.model.Evento;
 import com.bequian.gamerzone.service.EventoService;
+import com.bequian.gamerzone.service.GestionUsuarioService;
 
 @Controller
 @RequestMapping("/admin")
@@ -17,9 +18,11 @@ import com.bequian.gamerzone.service.EventoService;
 public class AdminController {
 
     private final EventoService eventoService;
+    private final GestionUsuarioService gestionUsuarioService;
 
-    public AdminController(EventoService eventoService) {
+    public AdminController(EventoService eventoService, GestionUsuarioService gestionUsuarioService) {
         this.eventoService = eventoService;
+        this.gestionUsuarioService = gestionUsuarioService;
     }
 
     @GetMapping
@@ -27,6 +30,7 @@ public class AdminController {
         List<Evento> eventos = eventoService.listarTodos();
         model.addAttribute("eventos", eventos);
         model.addAttribute("totalEventos", eventos.size());
+        model.addAttribute("totalUsuarios", gestionUsuarioService.listar().size());
         return "admin/panel";
     }
 }

@@ -24,4 +24,9 @@ public interface CompartidoRepository extends JpaRepository<Compartido, Long> {
     @Modifying
     @Query("delete from Compartido c where c.evento.id = :eventoId")
     void deleteByEvento(@Param("eventoId") Long eventoId);
+
+    // Al eliminar un usuario se eliminan también sus eventos compartidos
+    @Modifying
+    @Query("delete from Compartido c where c.usuario.id = :usuarioId")
+    void deleteByUsuario(@Param("usuarioId") Long usuarioId);
 }

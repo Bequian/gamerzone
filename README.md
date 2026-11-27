@@ -58,6 +58,7 @@ Navegador ─HTTPS─►│ proxy (Apache, 443) ──red "frontend"──► ap
 | **Fotos y videos** del evento (subir fotos JPG/PNG y agregar videos de YouTube) | `/eventos/{id}#multimedia` | Ver: privada · Agregar/eliminar: **ORGANIZADOR** o **ADMIN** |
 | **Compartir** eventos en GamerZone (queda en el perfil) y en WhatsApp, X y Facebook | `/eventos/{id}#compartir` | Privada |
 | Panel de administración | `/admin` | Solo rol **ADMIN** |
+| **Gestión de usuarios y administradores**: crear, editar (nombre, roles, contraseña) y eliminar usuarios | `/admin/usuarios` | Solo rol **ADMIN** |
 
 Además:
 - `http://IP/eventos` abre la búsqueda pública de eventos (redirigiendo automáticamente a HTTPS).
@@ -94,6 +95,10 @@ Authorization: Bearer <token>
 | `DELETE` | `/api/eventos/{id}/fotos/{fotoId}` y `/videos/{videoId}` | Rol **ORGANIZADOR** o **ADMIN** | Elimina una foto o un video |
 | `GET` | `/api/eventos/{id}/compartir` | Privada | Enlaces para compartir en WhatsApp, X y Facebook |
 | `POST` / `DELETE` | `/api/eventos/{id}/compartir` | Privada | Comparte (o deja de compartir) el evento en GamerZone |
+| `GET` | `/api/admin/usuarios` y `/api/admin/usuarios/{id}` | Rol **ADMIN** | Lista usuarios o muestra uno (nunca devuelve la contraseña) |
+| `POST` | `/api/admin/usuarios` | Rol **ADMIN** | Crea un usuario (`{"nombre", "correo", "password", "roles": ["USER","ADMIN"]}`) |
+| `PUT` | `/api/admin/usuarios/{id}` | Rol **ADMIN** | Edita nombre y roles; `password` es opcional |
+| `DELETE` | `/api/admin/usuarios/{id}` | Rol **ADMIN** | Elimina un usuario |
 
 ### Parámetros
 
@@ -161,6 +166,12 @@ Respuesta `200`:
 - Los 3 usuarios base se crean (o se actualiza su contraseña) en la BD cada vez que arranca la aplicación.
 - Los usuarios que se registran desde `/registro` inician sesión con su **correo** y reciben siempre el rol `USER`.
 - Los mismos usuarios sirven para el sitio web y para la API.
+- Un **ADMIN** puede gestionar usuarios en `/admin/usuarios` (o por la API `/api/admin/usuarios`). Reglas que valida el servidor:
+  - solo se pueden asignar los roles `USER`, `ORGANIZADOR` y `ADMIN` (`USER` siempre se incluye),
+  - un administrador no puede quitarse su propio rol `ADMIN` ni eliminar su propia cuenta,
+  - siempre debe quedar al menos un administrador,
+  - al eliminar un usuario se borran sus comentarios y compartidos; sus fotos y videos quedan a nombre del administrador que lo eliminó.
+- Como los 3 usuarios base se restablecen al arrancar, los cambios de roles o contraseña que se les hagan desde el panel se revierten en el siguiente reinicio.
 
 ---
 
@@ -316,8 +327,12 @@ Abrir `http://localhost:8080`
 ### Ejecutar los tests
 
 ```powershell
-.\mvnw test
+.\mvnw clean test
 ```
+
+Además de ejecutar los tests, genera el **reporte de cobertura de JaCoCo** en
+`target/site/jacoco/index.html` (para verlo en el navegador) y `target/site/jacoco/jacoco.xml` (el que lee SonarQube).
+Cada clase del proyecto tiene su propia clase de test en el mismo paquete (`src/test/java`).
 
 Los tests usan H2 en memoria, así que **no necesitan Docker**. Verifican, entre otras cosas, que:
 - las páginas públicas (`/`, `/registro`, `/eventos`) responden sin sesión y las privadas (`/eventos/{id}`, `/perfil`) redirigen al login,
@@ -327,7 +342,8 @@ Los tests usan H2 en memoria, así que **no necesitan Docker**. Verifican, entre
 - el login de la API devuelve un token JWT válido y rechaza credenciales incorrectas,
 - `GET /api/eventos` es público y `GET /api/eventos/{id}` exige token (**401** sin token o con un token inválido),
 - un `USER` no puede crear eventos (**403**) y un `ORGANIZADOR` puede crearlos y eliminarlos,
-- los datos inválidos devuelven **400** con el detalle de cada campo.
+- los datos inválidos devuelven **400** con el detalle de cada campo,
+- solo un `ADMIN` puede gestionar usuarios, y no puede quitarse su rol, eliminarse a sí mismo ni dejar el sitio sin administradores.
 
 ---
 

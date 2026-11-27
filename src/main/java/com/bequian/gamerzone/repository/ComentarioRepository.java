@@ -24,4 +24,9 @@ public interface ComentarioRepository extends JpaRepository<Comentario, Long> {
     @Modifying
     @Query("delete from Comentario c where c.evento.id = :eventoId")
     void deleteByEvento(@Param("eventoId") Long eventoId);
+
+    // Al eliminar un usuario se eliminan también sus comentarios
+    @Modifying
+    @Query("delete from Comentario c where c.usuario.id = :usuarioId")
+    void deleteByUsuario(@Param("usuarioId") Long usuarioId);
 }

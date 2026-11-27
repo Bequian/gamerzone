@@ -46,6 +46,8 @@ public class WebSecurityConfig {
                     .hasAnyRole("ORGANIZADOR", "ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/api/eventos/*/fotos/*", "/api/eventos/*/videos/*")
                     .hasAnyRole("ORGANIZADOR", "ADMIN")
+                // Gestión de usuarios: solo ADMIN
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 // Comentarios, valoraciones y compartir: cualquier usuario con token (regla anyRequest)
                 // Cualquier otra API (por ejemplo el detalle de un evento) requiere un token válido
                 .anyRequest().authenticated()

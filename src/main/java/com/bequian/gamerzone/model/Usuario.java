@@ -93,6 +93,8 @@ public class Usuario {
 
     public void setPassword(String passwordHash) { this.password = passwordHash; }
 
+    public void setNombre(String nombre) { this.nombre = nombre; }
+
     public void setRoles(Set<String> roles) {
         this.roles.clear();
         this.roles.addAll(roles);
